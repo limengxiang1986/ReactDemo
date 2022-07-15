@@ -4,10 +4,12 @@ import Rcaedaap from "./rcaedaap";
 
 class Line extends PureComponent{
   render(){
+    const why5data = this.props.why5data
+    const rcaedaapdata = this.props.rcaedaapdata
     return (
-      <div>
-        <Why5/>
-        <Rcaedaap/>
+      <div className="line">
+        <Why5 why5data={why5data} />
+        <Rcaedaap rcaedaapdata={rcaedaapdata}/>
       </div>
     )
   }

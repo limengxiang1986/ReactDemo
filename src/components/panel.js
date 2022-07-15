@@ -1,16 +1,16 @@
 import { PureComponent } from "react";
 import Line from './line';
-import '../assets/css/panel.css';
 
 class Panel extends PureComponent{
   render(){
+    const paneldata = this.props.paneldata
     return (
       <div className="panel">
-        <Line/>
-        <Line/>
-        <Line/>
-        <Line/>
-        <Line/>
+        {
+          paneldata.map((item , index)=>{
+            return <Line why5data={paneldata.why5} rcaedaapdata={paneldata.rcaedaap}/>
+          })
+        }
       </div>
     )
   }

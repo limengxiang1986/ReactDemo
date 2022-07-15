@@ -1,14 +1,19 @@
 import { PureComponent } from "react";
+import ReactDOM from 'react-dom';
+import Ap from './ap.js';
+import Rcaedarootcause from './rcaedarootcause.js';
 
 class Rcaedaap extends PureComponent{
   render(){
+    const rcaedaapdata = this.props.rcaedaapdata;
     return (
-      <div>
-        <div>rcaeda</div>
-        <div>ap1</div>
-        <div>ap2</div>
-        <div>ap3</div>
-        <div>ap4</div>
+      <div className="rcaedaap">
+        <Rcaedarootcause rcaedarootcausedata={rcaedaapdata.rcaedarootcause}/>
+        {
+          rcaedaapdata.map((item, index)=>{
+            return <Ap apdata={rcaedaapdata.aps}/>
+          })
+        }
       </div>
     )
   }

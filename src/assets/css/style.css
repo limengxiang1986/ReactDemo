@@ -1,0 +1,53 @@
+body{
+    padding: 0px;
+}
+
+.nav-bar{
+    display: flex;
+}
+.nav-left,.nav-right{
+    height: 44px;
+    width: 70px;
+    text-align: center;
+    line-height: 44px;
+    background-color: red;
+}
+.nav-center{
+    flex : 1;
+    background-color: blue;
+    height: 44px;
+    text-align: center;
+    line-height: 44px;
+}
+.panel{
+    /* background-color: rgb(233, 185, 185); */
+}
+.panel>.line{
+    display: flex;
+    margin: 5px;
+}
+.panel>.line>.why5{
+    display: flex;
+
+}
+.panel>.line>.why5>.why{
+    width: 150px;
+    margin-right:5px;
+    background-color: rgb(49, 75, 223);
+}
+.panel>.line>.rcaedaap{
+    display: flex; 
+}
+.panel>.line>.rcaedaap>.rcaedarootcause{
+    margin-right:5px;
+    width: 150px;
+    background-color: rgb(198, 218, 125);
+}
+.panel>.line>.rcaedaap>.ap{
+    margin-right:5px;
+    width: 150px;
+    background-color: rgb(145, 218, 143);
+}
+
+
+
