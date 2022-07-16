@@ -24,30 +24,93 @@ body{
 }
 .panel>.line{
     display: flex;
+    flex-shrink: 0;     /**aviod flexible*/
     margin: 5px;
+    height: 250px;
 }
 .panel>.line>.why5{
     display: flex;
+    flex-shrink: 0;     /**aviod flexible*/
+    flex-shrink: 0;
 
 }
 .panel>.line>.why5>.why{
-    width: 150px;
+    width: 250px;
     margin-right:5px;
-    background-color: rgb(49, 75, 223);
+    background-color: #A9BBD9;
+    border-radius: 5px;
 }
-.panel>.line>.rcaedaap{
+.panel>.line>.why5>.why>.whyqa{
+    float: left;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqatitleq{
+    background-color: #194A96;
+    width: 120px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqacontentq{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqatitlea{
+    background-color: #194A96;
+    width: 80px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqacontente{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.panel>.line>.why5>.why>.whyqaactionpanel{
+    float: right;
+    width: 30px;
+    height: 100%;
+    background-color: #3761A3;
+    border-radius: 0px 5px 5px 0px;
+}
+.panel>.line>.why5>.why>.whyqaactionpanel>.whyacbtn{
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #ACAF76;
+}
+.panel>.line>.why5>.emptywhy{
+    width: 250px;
+    margin-right:5px;
+    border-radius: 5px;
+}
+
+.panel>.line>.aps{
     display: flex; 
+    flex-shrink: 0;     /**aviod flexible*/
 }
-.panel>.line>.rcaedaap>.rcaedarootcause{
+.panel>.line>.rcaedarootcause{
     margin-right:5px;
-    width: 150px;
-    background-color: rgb(198, 218, 125);
+    width: 250px;
+    background-color: #FFCC00;
+    display: flex;
+    flex-shrink: 0;     /**aviod flexible*/
+    border-radius: 5px;
 }
-.panel>.line>.rcaedaap>.ap{
+.panel>.line>.aps>.ap{
     margin-right:5px;
-    width: 150px;
-    background-color: rgb(145, 218, 143);
+    width: 250px;
+    background-color: #3DAA00;
+    border-radius: 5px;
 }
-
-
-
+.btn{
+    background-color: ;
+    cursor: pointer;
+    margin-left: 5px;
+}
+.portallay{
+    background-color: rgb(73, 65, 65);
+}
