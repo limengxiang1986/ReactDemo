@@ -1,4 +1,7 @@
 import { PureComponent } from "react";
+import {MinusCircleOutlined} 
+        from '@ant-design/icons'
+import "antd/dist/antd.css";
 
 class Ap extends PureComponent{
   render(){
@@ -6,15 +9,17 @@ class Ap extends PureComponent{
     const lineid = this.props.linedata.lineid
     return (
       <div className="ap">
-        <div>{apdata.ele1}</div>
-        <div>{apdata.ele2}</div>
-        <div>{apdata.ele3}</div>
-        <div>{apdata.ele4}</div>
-        <div>{apdata.ele5}</div>
-        <button onClick={e=>{
-          this.props.addapfunc(e,lineid)
-        }}>add a ap
-        </button>
+        <div className="content">
+          <div>{apdata.ele1}</div>
+          <div>{apdata.ele2}</div>
+          <div>{apdata.ele3}</div>
+          <div>{apdata.ele4}</div>
+          <div>{apdata.ele5}</div>
+        </div>
+        <div className="apactionpanel">
+            <MinusCircleOutlined  onClick={(e)=>{this.props.delapfunc(e,lineid,apdata.apid)}} className="apactionbtn"
+                  />
+        </div>
       </div>
     )
   }

@@ -5,13 +5,16 @@ class Why5 extends PureComponent{
   render(){
     const why5data = this.props.why5data
     const linedata = this.props.linedata
-    const why5emptydata = this.genEmptydata(why5data, linedata.whylimit)
+    const maxwhycols = this.props.maxwhycols
+    const why5emptydata = this.genEmptydata(why5data, Math.min(maxwhycols, linedata.whylimit))
     return (
       <div className="why5">
         {
           why5data.map((item,index)=>{
             return <Why key={"why"+index} whydata={item} linedata={linedata} 
-                    addwhyfunc={this.props.addwhyfunc}
+                    addrightwhyfunc={this.props.addrightwhyfunc}
+                    addsubwhyfunc={this.props.addsubwhyfunc}
+                    addrootescapsecausefunc={this.props.addrootescapsecausefunc}
                     delwhyfunc={this.props.delwhyfunc}
                     editqafunc={this.props.editqafunc}
                     />
