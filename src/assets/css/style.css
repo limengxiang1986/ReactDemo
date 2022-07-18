@@ -140,3 +140,38 @@ body{
 .portallay{
     background-color: #ddd;
 }
+.editpanel{
+    
+}
+.editpanel>.maskclass{
+    background-color: rgb(104, 91, 91);
+}
+.editpanel>.qaEditPanel{
+    background-color: rgb(104, 91, 91);
+}
+.panel>.line>.why5>.why>.whyqa>.whyqatitleq{
+    background-color: #194A96;
+    width: 120px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqacontentq{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqatitlea{
+    background-color: #194A96;
+    width: 80px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
+.panel>.line>.why5>.why>.whyqa>.whyqacontente{
+    font-size: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

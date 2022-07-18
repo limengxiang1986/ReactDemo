@@ -17,6 +17,7 @@ class Line extends PureComponent{
                 addsubwhyfunc={this.props.addsubwhyfunc}
                 addrootescapsecausefunc={this.props.addrootescapsecausefunc}
                 delwhyfunc={this.props.delwhyfunc}
+                modifycontent={this.props.modifycontent}
                 addlinefunc={this.props.addlinefunc}
                 editqafunc={this.props.editqafunc}/>
         {

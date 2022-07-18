@@ -13,42 +13,29 @@ class Panel extends PureComponent{
         "lineid":"lineid0001",
         "why5":[
         {
-        "whyid":"whyid"+this.getRandomNum(),
-        "why":{
+        "whyid":"whyid12lk3j1", 
         "question":"123",
-        "answer":"xxx"
-        }
+        "answer":"xxx",
+        "pid":""
         },
         {
-        "whyid":"whyid"+this.getRandomNum(),
-        "why":{
+        "whyid":"whyid12lk3jsdf", 
         "question":"123",
-        "answer":"xxx"
-        }
+        "answer":"xxx" ,
+        "pid":"whyid12lk3j1"
         },
         {
-        "whyid":"whyid"+this.getRandomNum(),
-        "why":{
+        "whyid":"whyid12lk3dks", 
         "question":"123",
-        "answer":"xxx"
-        }
-        }
-        // ,
-        // {
-        // "whyid":"whyid"+this.getRandomNum(),
-        // "why":{
-        // "question":"123",
-        // "answer":"xxx"
-        // }
-        // }
-        // ,
-        // {
-        // "whyid":"whyid"+this.getRandomNum(),
-        // "why":{
-        // "question":"123",
-        // "answer":"xxx"
-        // }
-        // }
+        "answer":"xxx",
+        "pid":"whyid12lk3jsdf"
+        },
+        {
+        "whyid":"whyid12ldfdks", 
+        "question":"123",
+        "answer":"xxx",
+        "pid":"whyid12lk3jsdf"
+        },
         ],
         "rcaedarootcause":"rc message",
         "aps":[
@@ -90,21 +77,6 @@ class Panel extends PureComponent{
         "answer":"xxx"
         }
         }
-        // ,
-        // {
-        // "whyid":"whyid"+this.getRandomNum(),
-        // "why":{
-        // "question":"123",
-        // "answer":"xxx"
-        // }
-        // },
-        // {
-        // "whyid":"whyid"+this.getRandomNum(),
-        // "why":{
-        // "question":"123",
-        // "answer":"xxx"
-        // }
-        // }
         ],
         "rcaedarootcause":"rc message",
         "aps":[
@@ -166,7 +138,7 @@ class Panel extends PureComponent{
   renderQaEditPanel(editedwhyid){
     if(editedwhyid){
       return this.state.showqaedit && 
-        <div>
+        <div className="editpanel">
           <div className="maskclass">
           </div>
           <div className="qaEditPanel">

@@ -11,13 +11,14 @@ class Why5 extends PureComponent{
       <div className="why5">
         {
           why5data.map((item,index)=>{
-            return <Why key={"why"+index} whydata={item} linedata={linedata} 
+            return <Why key={"why"+this.getRandomNum()} whydata={item} linedata={linedata} 
                     addrightwhyfunc={this.props.addrightwhyfunc}
                     addsubwhyfunc={this.props.addsubwhyfunc}
                     addrootescapsecausefunc={this.props.addrootescapsecausefunc}
                     addlinefunc={this.props.addlinefunc}
                     delwhyfunc={this.props.delwhyfunc}
                     editqafunc={this.props.editqafunc}
+                    modifycontent={this.props.modifycontent}
                     />
           })
         }
@@ -36,6 +37,9 @@ class Why5 extends PureComponent{
     }
     return emptydata
   }
+  getRandomNum(){
+    return parseInt(Math.random() * 999999999999)
+  } 
 }
 
 export default Why5

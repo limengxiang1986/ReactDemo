@@ -143,6 +143,7 @@ class Panel extends PureComponent{
                     addsubwhyfunc={(e,lineid)=>{this.addsubwhy(lineid)}}
                     addrootescapsecausefunc={(e,lineid)=>{this.addrootescapsecause(lineid)}}
                     addapfunc={(e,lineid)=>{this.addap(lineid)}}
+                    modifycontent={(e,lineid,whyid,content)=>{this.modifycontent(lineid,whyid,content)}}
                     delapfunc={(e,lineid,apid)=>{this.delap(lineid,apid)}}
                     delwhyfunc={(e,lineid,whyid)=>{this.delwhy(lineid,whyid)}}
                     editqafunc={(e,lineid,whyid)=>{this.editqa(lineid,whyid)}}
@@ -193,6 +194,29 @@ class Panel extends PureComponent{
     }else {
       return ''
     }
+  }
+  modifycontent(lineid, whyid,content){
+    if(!lineid){
+      return
+    }
+    const paneldatanew1 = [...this.state.paneldata];
+    for(let i=0;i<paneldatanew1.length;i++){
+      if(paneldatanew1[i].lineid == lineid){
+        if(paneldatanew1[i].why5.length == 1){
+          return ;
+        }
+        for(let j=0;j<paneldatanew1[i].why5.length;j++){
+          if(paneldatanew1[i].why5[j].whyid == whyid){
+            let whyobj = {...paneldatanew1[i].why5[j]}
+            whyobj.content = content
+            paneldatanew1[i].why5[j].why.answer = content
+          }
+        }
+      }
+    }
+    this.setState({
+      paneldata:paneldatanew1
+    })
   }
   editqa(lineid, whyid){
     this.setState({

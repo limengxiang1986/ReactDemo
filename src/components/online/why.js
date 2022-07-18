@@ -40,6 +40,7 @@ class Why extends PureComponent{
                 <MinusCircleOutlined onClick={(e)=>{this.props.delwhyfunc(e,linedata.lineid,whydata.whyid)}} className="whyacbtn"/>
                 <EditOutlined className="whyacbtn" onClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}/>
                 <DownOutlined className="whyacbtn" onClick={e=>{this.props.addlinefunc(e)}}/>
+                <DownOutlined className="whyacbtn" onClick={e=>{this.props.modifycontent(e,linedata.lineid,whydata.whyid,'slakflsafdjkl')}}/>
             </div>
         </div>
     }else {
