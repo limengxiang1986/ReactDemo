@@ -1,4 +1,5 @@
 import { PureComponent } from "react";
+import ReactDOM from 'react-dom';
 import Footer from "./components/app-footer";
 import Body from "./components/body";
 import Headers from "./components/app-header";
@@ -7,8 +8,8 @@ import routes from './router';
 import { HashRouter } from "react-router-dom";
 import {renderRoutes} from 'react-router-config';
 import { BrowserRouter } from "react-router-dom/cjs/react-router-dom.min";
-import Panel from './components/online/panel';
-// import Panel from './components/onlinebranch/panel';
+// import Panel from './components/online/panel';
+import Panel from './components/onlinebranch/panel';
 import './assets/css/style.css';
 
 

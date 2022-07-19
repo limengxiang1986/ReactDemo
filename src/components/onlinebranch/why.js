@@ -7,40 +7,39 @@ import "antd/dist/antd.css";
 
 class Why extends PureComponent{
   render(){
-    const whydata = this.props.whydata;
-    const linedata = this.props.linedata;
+    const why = this.props.why;
+    const css = this.props.css;
     return (
         <>
-            {this.renderContent(whydata,linedata)}
+            {this.renderContent(why, css)}
         </>
     )
   }
-  renderContent = (whydata,linedata) =>{
-    if(whydata.whyid){
-        return <div className="why">
-            <div className="whyqa" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
-                <div className="whyqatitleq" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
+  renderContent = (why,css) =>{
+    if(!why.isblank){
+        return <div className="why" style={{height: css.eleheight*why.rsize+(why.rsize-1)*css.marginbottom+"px"}}>
+            <div className="whyqa" >
+                <div className="whyqatitleq" >
                     Question:
                 </div>
-                <div className="whyqacontentq" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
-                    {whydata.why.question}
+                <div className="whyqacontentq" >
+                    {why.question}
                 </div>
-                <div className="whyqatitlea" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
+                <div className="whyqatitlea" >
                     Answer:
                 </div>
-                <div className="whyqacontente" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
-                    {whydata.why.answer}
+                <div className="whyqacontente" >
+                    {why.answer}
                 </div>
             </div>
-            <div className="whyqaactionpanel" onDoubleClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}>
-                {/**<SubnodeOutlined onClick={(e)=>{this.props.addrightwhyfunc(e,linedata.lineid)}} className="whyacbtn" title="sdfsad"/>*/}
+            {/* <div className="whyqaactionpanel" > 
                 <SisternodeOutlined onClick={(e)=>{this.props.addsubwhyfunc(e,linedata.lineid)}} className="whyacbtn"/>
                 <ColumnHeightOutlined onClick={(e)=>{this.props.addsubwhyfunc(e,linedata.lineid)}} className="whyacbtn"/>
                 <LoginOutlined onClick={(e)=>{this.props.addrootescapsecausefunc(e,linedata.lineid)}} className="whyacbtn"/>
-                <MinusCircleOutlined onClick={(e)=>{this.props.delwhyfunc(e,linedata.lineid,whydata.whyid)}} className="whyacbtn"/>
-                <EditOutlined className="whyacbtn" onClick={e=>{this.props.editqafunc(e,linedata.lineid,whydata.whyid)}}/>
+                <MinusCircleOutlined onClick={(e)=>{this.props.delwhyfunc(e,linedata.lineid,why.whyid)}} className="whyacbtn"/>
+                <EditOutlined className="whyacbtn" onClick={e=>{this.props.editqafunc(e,linedata.lineid,why.whyid)}}/>
                 <DownOutlined className="whyacbtn" onClick={e=>{this.props.addlinefunc(e)}}/>
-            </div>
+            </div> */}
         </div>
     }else {
         return <div className="emptywhy"></div>

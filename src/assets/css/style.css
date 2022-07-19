@@ -149,7 +149,27 @@ body{
 .editpanel>.qaEditPanel{
     background-color: rgb(104, 91, 91);
 }
-.panel>.line>.why5>.why>.whyqa>.whyqatitleq{
+.panel>.scenario{
+    flex-shrink: 0;     /**aviod flexible*/
+    margin: 5px;
+    height: 350px;
+    display: flex;
+    flex-flow: row;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.panel>.scenario>.why{
+    width: 250px;
+    height: 250px;
+    margin-right:5px;
+    margin-bottom: 5px;
+    background-color: #A9BBD9;
+    border-radius: 5px;
+}
+.panel>.scenario>.why>.whyqa{
+    float: left;
+}
+.panel>.scenario>.why>.whyqa>.whyqatitleq{
     background-color: #194A96;
     width: 120px;
     border-radius: 3px 0px 10px 0px;
@@ -157,12 +177,12 @@ body{
     padding: 0px 5px 3px 5px;
     font-size: 16px;
 }
-.panel>.line>.why5>.why>.whyqa>.whyqacontentq{
+.panel>.scenario>.why>.whyqa>.whyqacontentq{
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 5px;
 }
-.panel>.line>.why5>.why>.whyqa>.whyqatitlea{
+.panel>.scenario>.why>.whyqa>.whyqatitlea{
     background-color: #194A96;
     width: 80px;
     border-radius: 3px 0px 10px 0px;
@@ -170,8 +190,21 @@ body{
     padding: 0px 5px 3px 5px;
     font-size: 16px;
 }
-.panel>.line>.why5>.why>.whyqa>.whyqacontente{
+.panel>.scenario>.why>.whyqa>.whyqacontente{
     font-size: 16px;
     margin-top: 5px;
     margin-bottom: 5px;
+}
+.panel>.scenario>.why>.whyqaactionpanel{
+    float: right;
+    width: 30px;
+    height: 100%;
+    background-color: #3761A3;
+    border-radius: 0px 5px 5px 0px;
+}
+.panel>.scenario>.why>.whyqaactionpanel>.whyacbtn{
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #ACAF76;
 }
