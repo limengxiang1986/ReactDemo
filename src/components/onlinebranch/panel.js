@@ -14,53 +14,67 @@ class Panel extends PureComponent{
       paneldata : {
         "scenarios":[{
           "scenarioid":"scenarioidasdfl01",
-          "whys":[
+          "why":
           {
-          "whyid":"whyid12lk3j1", 
+          "whyid":"whyid0001", 
           "question":"123",
-          "answer":"xxx",
-          "pid":""
-          },
-          {
-          "whyid":"whyid12lk3jsdf", 
-          "question":"123",
-          "answer":"xxx" ,
-          "pid":"whyid12lk3j1"
-          },
-          {
-          "whyid":"whyid12lk3dks", 
-          "question":"123",
-          "answer":"xxx",
-          "pid":"whyid12lk3jsdf"
-          },
-          {
-          "whyid":"whyid12ldfdks", 
-          "question":"123",
-          "answer":"xxx",
-          "pid":"whyid12lk3jsdf"
-          },
-          ],
-          "rcamodel":[
+          "answer":"1",
+          "pid":"",
+          "subwhys":[
             {
-              "rca":{
-                "rcaedarootcasuseid":"rcaasdflk0001",
-                "rcaedarootcause":"rc message",
-              },
-              "aps":[
-                { 
-                "apid":"apsldf0001",
-                "rcaedarootcasuseid":"rcaasdflk0001",
-                "ele1":"1",
-                "ele2":"12",
-                "ele3":"13",
-                "ele4":"14",
-                "ele5":"145" 
+              "whyid":"whyid0002", 
+              "question":"123",
+              "answer":"2" ,
+              "pid":"whyid0001",
+              "subwhys":[
+                {
+                  "whyid":"whyid0003", 
+                  "question":"123",
+                  "answer":"3" ,
+                  "pid":"whyid0002",
+                  "subwhys":[
+                    
+                  ]
+                },
+                {
+                  "whyid":"whyid0004", 
+                  "question":"123",
+                  "answer":"4" ,
+                  "pid":"whyid0002",
+                  "subwhys":[
+                    {
+                      "whyid":"whyid0007", 
+                      "question":"123",
+                      "answer":"7" ,
+                      "pid":"whyid0004",
+                      "subwhys":[
+                        
+                      ]
+                    },
+                  ]
+                },
+              ]
+            },
+            {
+              "whyid":"whyid0005", 
+              "question":"123",
+              "answer":"5" ,
+              "pid":"whyid0001",
+              "subwhys":[
+                {
+                  "whyid":"whyid0006", 
+                  "question":"123",
+                  "answer":"6" ,
+                  "pid":"whyid0005",
+                  "subwhys":[
+                    
+                  ]
                 }
               ]
-            }
+            },
           ]
-        }
-      ],
+          }
+      }],
       "aplimit":5,
       "whylimit":5
       }
@@ -72,7 +86,7 @@ class Panel extends PureComponent{
       <div className="panel">
         {
           paneldata.scenarios.map((item , index, allline)=>{
-            return <Scenario key={"line"+index} scenariodata={item} css={this.state.css}/>
+            return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} getRandomNum={this.getRandomNum}/>
           })
         }
       </div>

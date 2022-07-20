@@ -208,3 +208,12 @@ body{
     font-size: 20px;
     color: #ACAF76;
 }
+
+.panel>.scenario>.emptywhy{
+    width: 250px;
+    height: 250px;
+    margin-right:5px;
+    margin-bottom: 5px;
+    background-color: '';
+    border-radius: 5px;
+}
