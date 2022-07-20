@@ -17,7 +17,7 @@ class Why extends PureComponent{
     )
   }
   renderContent = (why,css) =>{
-    let whyid = why.whyid;
+    let whyid = why.eleid;
     if(!why.isblank){
         return <div className="why" style={{height: css.eleheight*why.rsize+(why.rsize-1)*css.marginbottom+"px"}}>
                 <div className="whyqa" >

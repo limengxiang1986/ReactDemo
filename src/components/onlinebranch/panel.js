@@ -9,29 +9,30 @@ class Panel extends PureComponent{
       css:{
         eleheight:250,
         elewidth:250,
-        marginbottom:5
+        marginbottom:5,
+        marginright:5
       },
       paneldata : {
         "scenarios":[{
           "scenarioid":"scenarioidasdfl01",
-          "why":
+          "rootwhy":
           {
           "eletype":"why",
-          "whyid":"whyid0001", 
+          "eleid":"whyid0001", 
           "question":"123",
           "answer":"1",
           "pid":"",
           "subeles":[
             {
               "eletype":"why",
-              "whyid":"whyid0002", 
+              "eleid":"whyid0002", 
               "question":"123",
               "answer":"2" ,
               "pid":"whyid0001",
               "subeles":[
                 {
                   "eletype":"why",
-                  "whyid":"whyid0003", 
+                  "eleid":"whyid0003", 
                   "question":"123",
                   "answer":"3" ,
                   "pid":"whyid0002",
@@ -41,24 +42,26 @@ class Panel extends PureComponent{
                 },
                 {
                   "eletype":"why",
-                  "whyid":"whyid0004", 
+                  "eleid":"whyid0004", 
                   "question":"123",
                   "answer":"4" ,
                   "pid":"whyid0002",
                   "subeles":[
-                    {
-                      "eletype":"why",
-                      "whyid":"whyid0007", 
-                      "question":"123",
-                      "answer":"7" ,
-                      "pid":"whyid0004",
-                      "subeles":[
+                    // {
+                    //   "eletype":"why",
+                    //   "eleid":"whyid0007", 
+                    //   "question":"123",
+                    //   "answer":"7" ,
+                    //   "pid":"whyid0004",
+                    //   "subeles":[
                         
-                      ]
-                    },
+                    //   ]
+                    // },
                     {
                       "eletype":"rootcause",
-                      "rtid":"rtid00001", 
+                      "eleid":"rtid00001", 
+                      "question":"123",
+                      "answer":"7" ,
                       "rootcause":"root cause",
                       "pid":"whyid0004",
                       "subeles":[
@@ -71,14 +74,14 @@ class Panel extends PureComponent{
             },
             {
               "eletype":"why",
-              "whyid":"whyid0005", 
+              "eleid":"whyid0005", 
               "question":"123",
               "answer":"5" ,
               "pid":"whyid0001",
               "subeles":[
                 {
                   "eletype":"why",
-                  "whyid":"whyid0006", 
+                  "eleid":"whyid0006", 
                   "question":"123",
                   "answer":"6" ,
                   "pid":"whyid0005",
@@ -120,7 +123,7 @@ class Panel extends PureComponent{
   findwhy(whyid,paneldata){
     let w = ''
     for(let i=0;i<paneldata.scenarios.length;i++){
-      w = this.findwhyunderwhy(whyid, paneldata.scenarios[i].why);
+      w = this.findwhyunderwhy(whyid, paneldata.scenarios[i].rootwhy);
       if(w) {
         return w;
       }
@@ -131,19 +134,19 @@ class Panel extends PureComponent{
     let w = this.findwhy(whyid, paneldata);
     let pw = '';
     for(let i=0;i<paneldata.scenarios.length;i++){
-      pw = this.findwhyunderwhy(w.pid, paneldata.scenarios[i].why);
+      pw = this.findwhyunderwhy(w.pid, paneldata.scenarios[i].rootwhy);
       if(pw) {
         return pw;
       }
     }
     return pw;
   }
-  findwhyunderwhy(whyid, why){
-    if(whyid == why.whyid){
-      return why;
+  findwhyunderwhy(whyid, pele){
+    if(whyid == pele.eleid){
+      return pele;
     }
-    for(let i=0;i<why.subeles.length;i++){
-      let w = this.findwhyunderwhy(whyid, why.subeles[i]);
+    for(let i=0;i<pele.subeles.length;i++){
+      let w = this.findwhyunderwhy(whyid, pele.subeles[i]);
       if(w){
         return w;
       }
@@ -160,12 +163,14 @@ class Panel extends PureComponent{
     })
   }
   genEmptyWhy(pwhyid){
-    return {"whyid":"whyid"+this.getRandomNum(), 
-    "question":this.getRandomNum(),
-    "answer":this.getRandomNum() ,
-    "pid":pwhyid,
-    "subeles":[
-    ]}
+    return {
+      "eletype":"why",
+      "eleid":"whyid"+this.getRandomNum(), 
+      "question":this.getRandomNum(),
+      "answer":this.getRandomNum() ,
+      "pid":pwhyid,
+      "subeles":[
+      ]}
   }
   addrootescapsecause(whyid){
 
@@ -185,11 +190,12 @@ class Panel extends PureComponent{
   genEmptyScenario(){
     return {
       "scenarioid":"scenarioid"+this.getRandomNum(),
-      "why":
+      "rootwhy":
       {
-      "whyid":"whyid"+this.getRandomNum(), 
-      "question":"123",
-      "answer":"1",
+      "eletype":"why",
+      "eleid":"whyid"+this.getRandomNum(), 
+      "question":this.getRandomNum(),
+      "answer":this.getRandomNum(),
       "pid":"",
       "subeles":[]
       }}

@@ -1,13 +1,16 @@
 import { InfoCircleTwoTone } from "@ant-design/icons";
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
+import Rcaedarootcause from './rcaedarootcause'
 import Why from './why';
+import Empty from "./emptyele";
+
 
 class Scenario extends PureComponent{
   render(){
     const scenariodata = this.props.scenariodata;
     const css = this.props.css;
-    const scenariometrics = scenariodata.why;
+    const scenariometrics = scenariodata.rootwhy;
     //1. tree to treearr
     const whytreearr = this.transtreetoarr(scenariometrics);
     //2. fill treearr position
@@ -24,14 +27,26 @@ class Scenario extends PureComponent{
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>
         {
-            whycssarr.map((item,index, allitem)=>{
-                return <Why key={item.whyid} why={item} css={css}
-                        addsubwhy={this.props.addsubwhy}
-                        addrootescapsecause={this.props.addrootescapsecause}
-                        delwhy={this.props.delwhy}
-                        editqa={this.props.editqa}
-                        addscenario={this.props.addscenario}
-                       />
+            whycssarr.map((item, index, allitem)=>{
+                if(item.eletype == 'why'){
+                    return <Why key={item.eleid+index} why={item} css={css}
+                            addsubwhy={this.props.addsubwhy}
+                            addrootescapsecause={this.props.addrootescapsecause}
+                            delwhy={this.props.delwhy}
+                            editqa={this.props.editqa}
+                            addscenario={this.props.addscenario}
+                           />
+                }else if(item.eletype == 'rootcause'){
+                    return <Rcaedarootcause key={item.eleid+index} rootcause={item} css={css}
+                            addsubwhy={this.props.addsubwhy}
+                            addrootescapsecause={this.props.addrootescapsecause}
+                            delwhy={this.props.delwhy}
+                            editqa={this.props.editqa}
+                            addscenario={this.props.addscenario}
+                           />
+                }else if(item.eletype == 'empty'){
+                    return <Empty key={item.eleid+index} isempty="true" css={css} />
+                }
             })
         }
       </div>
@@ -43,8 +58,8 @@ class Scenario extends PureComponent{
     let csize = whymetrics[0].length;
     for(let i=0;i<csize;i++){
         for(let j=0;j<whymetrics.length;j++){
-            if(whycssarr.indexOf(whymetrics[j][i].why) == -1){
-                whycssarr.push(whymetrics[j][i].why);
+            if(whycssarr.indexOf(whymetrics[j][i].ele) == -1){
+                whycssarr.push(whymetrics[j][i].ele);
             }
         }
     }
@@ -59,7 +74,7 @@ class Scenario extends PureComponent{
     for(let i=0;i<rsize;i++){
         emptymetrics.push([])
         for(let j=0;j<csize;j++){
-            emptymetrics[i].push({why:null,value:0})
+            emptymetrics[i].push({ele:null,value:0})
         }
     }
     let whytreearr2 = [...whytreearr];
@@ -67,11 +82,11 @@ class Scenario extends PureComponent{
     for(let i=0;i<emptymetrics.length;i++){
         for(let j=0;j<emptymetrics[i].length;j++){
             if(emptymetrics[i][j].value == 0 ){
-                let w = whytreearr2[0];
+                let w = whytreearr2[0]; //get first ele, later will remove
                 let wrsize = w.rsize;
                 for(let m=0;m<wrsize;m++){
                     emptymetrics[i+m][j].value = 1;    
-                    emptymetrics[i+m][j].why = w;
+                    emptymetrics[i+m][j].ele = w;
                 }
                 whytreearr2 = whytreearr2.slice(1);
                 if(w.isleafnode==true){ 
@@ -83,13 +98,13 @@ class Scenario extends PureComponent{
     // fill metrics with blankwhy when why is null
     for(let i=0;i<emptymetrics.length;i++){
         for(let j=0;j<emptymetrics[i].length;j++){
-            if(emptymetrics[i][j].value == 0 && emptymetrics[i][j].why == null){
-                emptymetrics[i][j] = {why:{isblank:true,whyid:this.props.getRandomNum()},value:1}
+            if(emptymetrics[i][j].value == 0 && emptymetrics[i][j].ele == null){
+                emptymetrics[i][j] = {ele:{eletype:"empty",isblank:true,eleid:this.props.getRandomNum()},value:1}
             }
             // set blank colsize if it's a leafnode, for cssarr use
-            if(emptymetrics[i][j].why.isleafnode == true){
+            if(emptymetrics[i][j].ele.isleafnode == true){
                 let csize = emptymetrics[0].length;
-                emptymetrics[i][j].why.nextblankcol = csize - j - 1;
+                emptymetrics[i][j].ele.nextblankcol = csize - j - 1;
             }
         }
     }
@@ -147,7 +162,7 @@ class Scenario extends PureComponent{
   }
   hasparent(node, whytreearr){
     for(let i=0;i<whytreearr.length;i++){
-        if(node.pid == whytreearr[i].whyid){
+        if(node.pid == whytreearr[i].eleid){
             return true
         }
     }
@@ -155,7 +170,7 @@ class Scenario extends PureComponent{
   }
   getparent(node, whytreearr){
     for(let i=0;i<whytreearr.length;i++){
-        if(node.pid == whytreearr[i].whyid){
+        if(node.pid == whytreearr[i].eleid){
             return whytreearr[i]
         }
     }

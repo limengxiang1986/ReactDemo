@@ -6,15 +6,14 @@ import "antd/dist/antd.css";
 
 class Rcaedarootcause extends PureComponent{
   render(){ 
-    const rcaedarootcausedata = this.props.rcaedarootcausedata
-    const lineid = this.props.linedata.lineid
+    const rootcause = this.props.rootcause 
     return (
       <div className="rcaedarootcause"> 
         <div className="content">
-          {rcaedarootcausedata}
+          {rootcause.rootcause}
         </div>
         <div className="rcaedarootcauseactionpanel">
-            <AmazonOutlined  onClick={(e)=>{this.props.addapfunc(e,lineid)}} className="rcaedarootacbtn"/>
+            <AmazonOutlined  className="rcaedarootacbtn"/> {/**onClick={(e)=>{this.props.addsubwhy(e,rootcause.eleid)}} */}
         </div>
       </div>
     )
