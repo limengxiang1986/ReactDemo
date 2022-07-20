@@ -21,6 +21,7 @@ body{
 }
 .panel{
     /* background-color: rgb(233, 185, 185); */
+    margin-bottom: 20px;
 }
 .panel>.line{
     display: flex;
@@ -217,3 +218,14 @@ body{
     background-color: '';
     border-radius: 5px;
 }
+.addscenario{
+    border-radius: 4px;
+    background-color: rgb(41, 184, 141);
+    font-size: 25px;
+    width: 250px;
+    height: 45px;
+    margin: 5px;
+    color: #fff;
+}
+
+
