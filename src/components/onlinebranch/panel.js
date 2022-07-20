@@ -113,6 +113,7 @@ class Panel extends PureComponent{
                   editqa={(e,whyid)=>this.editqa(whyid)}
                   addscenario={(e,whyid)=>this.addscenario(whyid)}
                   addsubap={(e,eleid)=>this.addsubap(eleid)}
+                  addcomment={(e,eleid)=>this.addcomment(eleid)}
             />
           })
         }

@@ -36,16 +36,19 @@ class Scenario extends PureComponent{
                             delele={this.props.delele}
                             editqa={this.props.editqa}
                             addscenario={this.props.addscenario}
+                            addcomment={this.props.addcomment}
                            />
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} css={css} 
                             addsubap={this.props.addsubap}
                             delele={this.props.delele}
+                            addcomment={this.props.addcomment}
                            />
                 }else if(item.eletype == 'ap'){
                     return <Ap key={item.eleid+index} ap={item} css={css}
                             addsubap={this.props.addsubap}
                             delele={this.props.delele}
+                            addcomment={this.props.addcomment}
                            />
                 }else if(item.eletype == 'empty'){
                     return <Empty key={item.eleid+index} isempty="true" css={css} />

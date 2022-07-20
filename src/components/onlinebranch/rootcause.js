@@ -1,6 +1,6 @@
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
-import {AmazonOutlined,MinusCircleOutlined} 
+import {AmazonOutlined,MinusCircleOutlined,CommentOutlined} 
         from '@ant-design/icons'
 import "antd/dist/antd.css";
 
@@ -18,6 +18,7 @@ class Rootcause extends PureComponent{
         <div className="rcaedarootcauseactionpanel">
             <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, rootcause.eleid)}} title="Create ap" className="acbtn"/> 
             <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, rootcause.eleid)}} title="Delete" className="acbtn"/> 
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.addcomment(e,rootcause.eleid)}} title="Comment"/>
         </div>
       </div>
     )

@@ -266,6 +266,15 @@ body{
 .panel>.scenario>.ap>.content{
     float: left;
 }
+.panel>.scenario>.ap>.content>.title{
+    background-color: #194A96;
+    width: 150px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    z-index: 998;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
 .panel>.scenario>.ap>.content input{
     border: 1px solid #000;
     margin-left: 5px;
