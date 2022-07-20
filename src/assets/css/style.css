@@ -230,17 +230,65 @@ body{
 .panel>.scenario>.rcaedarootcause>.content{
     float: left;
 }
+.panel>.scenario>.rcaedarootcause>.content>.title{
+    background-color: #194A96;
+    width: 120px;
+    border-radius: 3px 0px 10px 0px;
+    color: #fff;
+    z-index: 998;
+    padding: 0px 5px 3px 5px;
+    font-size: 16px;
+}
 .panel>.scenario>.rcaedarootcause>.rcaedarootcauseactionpanel{
+    float: right;
+    width: 30px;
+    height: 100%;
+    z-index: 999;
+    background-color: #3761A3;
+    border-radius: 0px 5px 5px 0px;
+}
+.panel>.scenario>.rcaedarootcause>.rcaedarootcauseactionpanel>.acbtn{
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #ACAF76;
+}
+.panel>.scenario>.ap{
+    margin-right:5px;
+    width: 250px;
+    height: 250px;
+    margin-right:5px;
+    margin-bottom: 5px;
+    background-color: #3DAA00;
+    flex-shrink: 0;
+    border-radius: 5px;
+}
+.panel>.scenario>.ap>.content{
+    float: left;
+}
+.panel>.scenario>.ap>.content input{
+    border: 1px solid #000;
+    margin-left: 5px;
+    background-color: #3DAA00;
+}
+.panel>.scenario>.ap>.apactionpanel{
     float: right;
     width: 30px;
     height: 100%;
     background-color: #3761A3;
     border-radius: 0px 5px 5px 0px;
 }
+.panel>.scenario>.ap>.apactionpanel>.acbtn{
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    color: #ACAF76;
+}
 .addscenario{
     border-radius: 4px;
     background-color: rgb(41, 184, 141);
     font-size: 25px;
+    margin-bottom: 50px;
     width: 250px;
     height: 45px;
     margin: 5px;

@@ -1,37 +1,27 @@
 import { PureComponent } from "react";
-import {MinusCircleOutlined} 
+import {MinusCircleOutlined,AmazonOutlined} 
         from '@ant-design/icons'
 import "antd/dist/antd.css";
 
 class Ap extends PureComponent{
   render(){
-    const apdata = this.props.apdata.ap
-    const lineid = this.props.linedata.lineid
+    const ap = this.props.ap
     return (
       <div className="ap">
         <div className="content">
           <div>
             Preventive Action Proposal
           </div>
-          <div>
-            <input />
-          </div>
           <div>Root Cause Category</div>
-          <div><input /></div>
+          <div><input />{ap.ele1}</div>
           <div>Root Cause Subcategory</div>
-          <div><input /></div>
+          <div><input />{ap.ele2}</div>
           <div>RCA Action Type</div>
-          <div><input /></div>
-          <div>Assigned To</div>
-          <div><input /></div>
-          <div>Jira Action Item Link</div>
-          <div><input /></div>
-          <div>Completion Target Date</div>
-          <div><input /></div>
+          <div><input />{ap.ele3}</div>
         </div>
         <div className="apactionpanel">
-            <MinusCircleOutlined  onClick={(e)=>{this.props.delapfunc(e,lineid,apdata.apid)}} className="apactionbtn"
-                  />
+            {/* <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, ap.eleid)}} title="Create ap" className="acbtn"/>  */}
+            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid)}} title="Delete" className="acbtn"/> 
         </div>
       </div>
     )

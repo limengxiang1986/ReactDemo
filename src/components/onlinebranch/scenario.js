@@ -1,9 +1,10 @@
 import { InfoCircleTwoTone } from "@ant-design/icons";
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
-import Rcaedarootcause from './rcaedarootcause'
+import Rootcause from './rootcause'
 import Why from './why';
 import Empty from "./emptyele";
+import Ap from "./ap";
 
 
 class Scenario extends PureComponent{
@@ -31,18 +32,20 @@ class Scenario extends PureComponent{
                 if(item.eletype == 'why'){
                     return <Why key={item.eleid+index} why={item} css={css}
                             addsubwhy={this.props.addsubwhy}
-                            addrootescapsecause={this.props.addrootescapsecause}
-                            delwhy={this.props.delwhy}
+                            addrootcause={this.props.addrootcause}
+                            delele={this.props.delele}
                             editqa={this.props.editqa}
                             addscenario={this.props.addscenario}
                            />
                 }else if(item.eletype == 'rootcause'){
-                    return <Rcaedarootcause key={item.eleid+index} rootcause={item} css={css}
-                            addsubwhy={this.props.addsubwhy}
-                            addrootescapsecause={this.props.addrootescapsecause}
-                            delwhy={this.props.delwhy}
-                            editqa={this.props.editqa}
-                            addscenario={this.props.addscenario}
+                    return <Rootcause key={item.eleid+index} rootcause={item} css={css} 
+                            addsubap={this.props.addsubap}
+                            delele={this.props.delele}
+                           />
+                }else if(item.eletype == 'ap'){
+                    return <Ap key={item.eleid+index} ap={item} css={css}
+                            addsubap={this.props.addsubap}
+                            delele={this.props.delele}
                            />
                 }else if(item.eletype == 'empty'){
                     return <Empty key={item.eleid+index} isempty="true" css={css} />

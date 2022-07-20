@@ -47,25 +47,26 @@ class Panel extends PureComponent{
                   "answer":"4" ,
                   "pid":"whyid0002",
                   "subeles":[
-                    // {
-                    //   "eletype":"why",
-                    //   "eleid":"whyid0007", 
-                    //   "question":"123",
-                    //   "answer":"7" ,
-                    //   "pid":"whyid0004",
-                    //   "subeles":[
-                        
-                    //   ]
-                    // },
                     {
                       "eletype":"rootcause",
                       "eleid":"rtid00001", 
-                      "question":"123",
-                      "answer":"7" ,
                       "rootcause":"root cause",
                       "pid":"whyid0004",
                       "subeles":[
-                        
+                        {
+                          "eletype":"ap",
+                          "eleid":"ap00001", 
+                          "ele1":"ele1",
+                          "ele2":"ele2",
+                          "ele3":"ele3",
+                          "ele4":"ele4",
+                          "ele5":"ele5",
+                          "ele6":"ele6",
+                          "pid":"rtid00001",
+                          "subeles":[
+                            
+                          ]
+                        }
                       ]
                     },
                   ]
@@ -107,10 +108,11 @@ class Panel extends PureComponent{
           paneldata.scenarios.map((item , index, allline)=>{
             return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} getRandomNum={this.getRandomNum}
                   addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
-                  addrootescapsecause={(e,whyid)=>this.addrootescapsecause(whyid)}
-                  delwhy={(e,whyid)=>this.delwhy(whyid)}
+                  addrootcause={(e,whyid)=>this.addrootcause(whyid)}
+                  delele={(e,eleid)=>this.delele(eleid)}
                   editqa={(e,whyid)=>this.editqa(whyid)}
                   addscenario={(e,whyid)=>this.addscenario(whyid)}
+                  addsubap={(e,eleid)=>this.addsubap(eleid)}
             />
           })
         }
@@ -120,7 +122,19 @@ class Panel extends PureComponent{
       </div>
     )
   }
-  findwhy(whyid,paneldata){
+  findleafele(eleid,paneldata){
+    let ele = this.findele(eleid,paneldata);
+    if(!ele){
+      return ''
+    }
+    if(ele.subeles.length == 0){
+      return ele;
+    }
+    for(let i=0;i<ele.subeles.length;i++){
+      return this.findleafele(ele.subeles[i].eleid,paneldata);
+    }
+  }
+  findele(whyid,paneldata){
     let w = ''
     for(let i=0;i<paneldata.scenarios.length;i++){
       w = this.findwhyunderwhy(whyid, paneldata.scenarios[i].rootwhy);
@@ -130,8 +144,8 @@ class Panel extends PureComponent{
     }
     return w;
   }
-  findpwhy(whyid, paneldata){ 
-    let w = this.findwhy(whyid, paneldata);
+  findpele(whyid, paneldata){ 
+    let w = this.findele(whyid, paneldata);
     let pw = '';
     for(let i=0;i<paneldata.scenarios.length;i++){
       pw = this.findwhyunderwhy(w.pid, paneldata.scenarios[i].rootwhy);
@@ -155,12 +169,68 @@ class Panel extends PureComponent{
   }
   addsubwhy(whyid){
     const paneldata = {...this.state.paneldata};
-    const why = this.findwhy(whyid, paneldata);
+    const why = this.findele(whyid, paneldata);
     console.log(why);
     why.subeles.push(this.genEmptyWhy(whyid));
     this.setState({
       paneldata: paneldata
     })
+  }
+  addrootcause(whyid){
+    const paneldata = {...this.state.paneldata};
+    const why = this.findele(whyid, paneldata);
+    console.log(why);
+    why.subeles.push(this.genEmptyRootCause(whyid));
+    this.setState({
+      paneldata: paneldata
+    })
+  } 
+  addsubap(eleid){
+    const paneldata = {...this.state.paneldata};
+    const ele = this.findleafele(eleid, paneldata);
+    console.log(ele);
+    ele.subeles.push(this.genEmptyAp(ele.eleid));
+    this.setState({
+      paneldata: paneldata
+    })
+  }
+  delele(whyid){
+    const paneldata = {...this.state.paneldata};
+    const why = this.findele(whyid, paneldata);
+    const pwhy = this.findpele(whyid, paneldata);
+    pwhy.subeles.splice(pwhy.subeles.indexOf(why),1);
+    this.setState({
+      paneldata: paneldata
+    })
+  }
+  editqa(whyid){
+
+  }
+  genEmptyAp(peleid){
+    return {
+      "eletype":"ap",
+      "eleid":"ap"+this.getRandomNum(), 
+      "ele1":"ele1",
+      "ele2":"ele2",
+      "ele3":"ele3",
+      "ele4":"ele4",
+      "ele5":"ele5",
+      "ele6":"ele6",
+      "pid":peleid,
+      "subeles":[
+        
+      ]
+    }
+  }
+  genEmptyRootCause(pwhyid){
+    return {
+      "eletype":"rootcause",
+      "eleid":"rtid"+this.getRandomNum(), 
+      "rootcause":"root cause",
+      "pid":pwhyid,
+      "subeles":[
+      ]
+    }
   }
   genEmptyWhy(pwhyid){
     return {
@@ -171,21 +241,6 @@ class Panel extends PureComponent{
       "pid":pwhyid,
       "subeles":[
       ]}
-  }
-  addrootescapsecause(whyid){
-
-  }
-  delwhy(whyid){
-    const paneldata = {...this.state.paneldata};
-    const why = this.findwhy(whyid, paneldata);
-    const pwhy = this.findpwhy(whyid, paneldata);
-    pwhy.subeles.splice(pwhy.subeles.indexOf(why),1);
-    this.setState({
-      paneldata: paneldata
-    })
-  }
-  editqa(whyid){
-
   }
   genEmptyScenario(){
     return {
