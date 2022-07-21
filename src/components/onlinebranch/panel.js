@@ -12,6 +12,11 @@ class Panel extends PureComponent{
         marginbottom:5,
         marginright:5
       },
+      actionparam:{
+        editedwhyid:'',
+        editedrootcauseid:'',
+        editedapid:'',
+      },
       paneldata : {
         "scenarios":[{
           "scenarioid":"scenarioidasdfl01",
@@ -110,18 +115,123 @@ class Panel extends PureComponent{
                   addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
                   addrootcause={(e,whyid)=>this.addrootcause(whyid)}
                   delele={(e,eleid)=>this.delele(eleid)}
-                  editqa={(e,whyid)=>this.editqa(whyid)}
+                  editqa={(e,eleid)=>this.editqa(eleid)}
+                  editrootcause={(e,eleid)=>this.editrootcause(eleid)}
                   addscenario={(e,whyid)=>this.addscenario(whyid)}
                   addsubap={(e,eleid)=>this.addsubap(eleid)}
                   addcomment={(e,eleid)=>this.addcomment(eleid)}
             />
           })
         }
+        {
+           this.renderQaEditPanel()
+        }
+        {
+           this.renderRootCauseEditPanel()
+        }
         <button className="addscenario" onClick={e=>{
           this.addscenario()
          }}>add a scenario</button>
       </div>
     )
+  }
+  renderQaEditPanel(){
+    let editedwhyid = this.state.actionparam.editedwhyid;
+    let why = this.findele(editedwhyid, this.state.paneldata);
+    let currentq = why.question;
+    let currenta = why.answer;
+    if(editedwhyid){
+      return <div className="edpanel">
+          <div className="maskclass">
+          </div>
+          <div className="qaEditPanel">
+            <div className="whyqa" >
+                <div className="whyqatitleq" >
+                    Question:
+                </div>
+                <div className="whyqacontentq" >
+                    <input ref={input => this.questioninput = input} defaultValue={why.question}/>
+                </div>
+                <div className="whyqatitlea" >
+                    Answer:
+                </div>
+                <div className="whyqacontente" >
+                    <input ref={input => this.answerinput = input} defaultValue={why.answer}/>
+                </div>
+            </div>  
+            <div className="bottom">
+              <button onClick={e=>{this.qaeditSave(this.state.actionparam.showwhyedit,editedwhyid)}} className="btn">Save</button>
+              <button onClick={e=>{this.qaeditClose(this.state.actionparam.showwhyedit)}} className="btn">Close</button>
+            </div>
+          </div>
+        </div>
+    }else {
+      return ''
+    }
+  }
+  renderRootCauseEditPanel(){
+    let editedrootcauseid = this.state.actionparam.editedrootcauseid;
+    let rt = this.findele(editedrootcauseid, this.state.paneldata);
+    let rootcause = rt.rootcause;
+    if(editedrootcauseid){
+      return <div className="edpanel">
+          <div className="maskclass">
+          </div>
+          <div className="qaEditPanel">
+            <div className="whyqa" >
+                <div className="whyqatitleq" >
+                    Root Cause:
+                </div>
+                <div className="whyqacontentq" >
+                    <input ref={input => this.rootcauseinput = input} defaultValue={rootcause}/>
+                </div>
+            </div>  
+            <div className="bottom">
+              <button onClick={e=>{this.rteditSave()}} className="btn">Save</button>
+              <button onClick={e=>{this.rteditClose()}} className="btn">Close</button>
+            </div>
+          </div>
+        </div>
+    }else {
+      return ''
+    }
+  }
+  qaeditClose(){
+    let actionparam = {...this.state.actionparam};
+    actionparam.editedwhyid = '';
+    this.setState({
+      actionparam:actionparam
+    })
+  }
+  qaeditSave(){
+    const paneldatanew = {...this.state.paneldata};
+    let actionparam = {...this.state.actionparam};
+    let ele = this.findele(actionparam.editedwhyid, paneldatanew)
+    ele.question = this.questioninput.value;
+    ele.answer = this.answerinput.value;
+    actionparam.editedwhyid = '';
+    this.setState({
+      actionparam:actionparam,
+      paneldatanew:paneldatanew
+    }) 
+  }
+  rteditClose(){
+    let actionparam = {...this.state.actionparam};
+    actionparam.editedrootcauseid = '';
+    this.setState({
+      actionparam:actionparam
+    })
+  }
+  rteditSave(){
+    const paneldatanew = {...this.state.paneldata};
+    let actionparam = {...this.state.actionparam};
+    let ele = this.findele(actionparam.editedrootcauseid, paneldatanew)
+    ele.rootcause = this.rootcauseinput.value;
+    actionparam.editedrootcauseid = '';
+    this.setState({
+      actionparam:actionparam,
+      paneldatanew:paneldatanew
+    }) 
   }
   findleafele(eleid,paneldata){
     let ele = this.findele(eleid,paneldata);
@@ -177,6 +287,20 @@ class Panel extends PureComponent{
       paneldata: paneldata
     })
   }
+  editqa(eleid){
+    this.setState({
+      actionparam:{
+        editedwhyid:eleid,
+      }
+    })
+  }
+  editrootcause(eleid){
+    this.setState({
+      actionparam:{
+        editedrootcauseid:eleid,
+      }
+    })
+  }
   addrootcause(whyid){
     const paneldata = {...this.state.paneldata};
     const why = this.findele(whyid, paneldata);
@@ -203,10 +327,7 @@ class Panel extends PureComponent{
     this.setState({
       paneldata: paneldata
     })
-  }
-  editqa(whyid){
-
-  }
+  } 
   genEmptyAp(peleid){
     return {
       "eletype":"ap",

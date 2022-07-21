@@ -41,6 +41,7 @@ class Scenario extends PureComponent{
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} css={css} 
                             addsubap={this.props.addsubap}
+                            editrootcause={this.props.editrootcause}
                             delele={this.props.delele}
                             addcomment={this.props.addcomment}
                            />
