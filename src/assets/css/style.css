@@ -377,4 +377,57 @@ body{
     color: #fff;
 }
 
+.panel>.comments{
+}
+.panel>.comments>.maskclass{
+    position:absolute;
+    left: 0px;
+    top: 0px;
+    background-color: rgb(104, 91, 91);
+    width: 100%;
+    height: 100%;
+    z-index: 998;
+    opacity: 0.5;
+}
+.panel>.comments>.qaEditPanel{
+    position:absolute;
+    left: 800px;
+    top: 300px;
+    background-color: #A9BBD9;
+    width: 700px;
+    height: 500px;
+    z-index: 999;
+    border-radius: 4px;
+}
+.panel>.comments>.qaEditPanel>.whyqa{
+    float: left;
+    width: 100%;
+    height: 90%;
+}
+
+.panel>.comments>.qaEditPanel>.whyqa>.comment{
+    font-size: 25px;
+    background-color: aliceblue;
+    margin: 5px;
+}
+
+.panel>.comments>.qaEditPanel>.whyqa>.commentaddbtn{
+    font-size: 25px;
+    position:absolute;
+    left: 10px;
+    bottom: 75px;
+}
+
+.panel>.comments>.qaEditPanel>.bottom{
+    position:absolute;
+    left: 10px;
+    bottom: 10px;
+}
+.panel>.comments>.qaEditPanel>.bottom>.btn{
+    border-radius: 4px;
+    background-color: rgb(36, 58, 165);
+    color: #fff;
+    font-size: 25px;
+    margin-right: 200px;
+}
 

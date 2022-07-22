@@ -1,6 +1,7 @@
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
+import Comment from "./comment";
 
 class Panel extends PureComponent{
   constructor(props){
@@ -16,6 +17,7 @@ class Panel extends PureComponent{
         editedwhyid:'',
         editedrootcauseid:'',
         editedapid:'',
+        commentpid:'',
       },
       paneldata : {
         "scenarios":[{
@@ -25,21 +27,21 @@ class Panel extends PureComponent{
           "eletype":"why",
           "eleid":"whyid0001", 
           "question":"123",
-          "answer":"1",
+          "answer":"why1",
           "pid":"",
           "subeles":[
             {
               "eletype":"why",
               "eleid":"whyid0002", 
               "question":"123",
-              "answer":"2" ,
+              "answer":"why2-1" ,
               "pid":"whyid0001",
               "subeles":[
                 {
                   "eletype":"why",
                   "eleid":"whyid0003", 
                   "question":"123",
-                  "answer":"3" ,
+                  "answer":"why3-1" ,
                   "pid":"whyid0002",
                   "subeles":[
                     
@@ -49,7 +51,7 @@ class Panel extends PureComponent{
                   "eletype":"why",
                   "eleid":"whyid0004", 
                   "question":"123",
-                  "answer":"4" ,
+                  "answer":"why3-2" ,
                   "pid":"whyid0002",
                   "subeles":[
                     {
@@ -82,7 +84,7 @@ class Panel extends PureComponent{
               "eletype":"why",
               "eleid":"whyid0005", 
               "question":"123",
-              "answer":"5" ,
+              "answer":"why2-2" ,
               "pid":"whyid0001",
               "subeles":[
                 {
@@ -101,7 +103,17 @@ class Panel extends PureComponent{
           }
       }],
       "aplimit":5,
-      "whylimit":5
+      "whylimit":5,
+      "deeplimit":5,
+      "rootcauselimit":1,
+      "comments":[
+        {
+          "eletype":"comment",
+          "eleid":"comment00001",
+          "comment":"it works, useful",
+          "pid":"whyid0001"
+        }
+      ]
       }
     }
   }
@@ -119,7 +131,8 @@ class Panel extends PureComponent{
                   editrootcause={(e,eleid)=>this.editrootcause(eleid)}
                   addscenario={(e,whyid)=>this.addscenario(whyid)}
                   addsubap={(e,eleid)=>this.addsubap(eleid)}
-                  addcomment={(e,eleid)=>this.addcomment(eleid)}
+                  showcomment={(e,eleid)=>this.showcomment(eleid)}
+                  findcomments={(e,eleid)=>this.findcomments(eleid)} 
             />
           })
         }
@@ -129,11 +142,43 @@ class Panel extends PureComponent{
         {
            this.renderRootCauseEditPanel()
         }
+        {
+           this.renderComments()
+        }
         <button className="addscenario" onClick={e=>{
           this.addscenario()
          }}>add a scenario</button>
       </div>
     )
+  }
+  renderComments(){
+    let commentpid = this.state.actionparam.commentpid;
+    let comments = this.findcomments(commentpid);
+    if(commentpid){
+      return <div className="comments">
+          <div className="maskclass">
+          </div>
+          <div className="qaEditPanel">
+            <div className="whyqa" >
+                {
+                  comments.map((item,index,allcomments)=>{
+                    return <Comment key={item.eleid} comment={item} getRandomNum={(e)=>{this.getRandomNum()}}/>
+                  })
+                }
+                <div className="commentaddbtn">
+                  Add a comment : &nbsp;
+                  <input ref={input => this.commentinput = input} defaultValue={''}/>
+                </div>
+            </div>  
+            <div className="bottom"> 
+              <button onClick={e=>{this.commenteditSave(commentpid)}} className="btn">Add</button>
+              <button onClick={e=>{this.commenteditClose(this.state.actionparam.showcomments)}} className="btn">Close</button>
+            </div>
+          </div>
+        </div>
+    }else {
+      return ''
+    }
   }
   renderQaEditPanel(){
     let editedwhyid = this.state.actionparam.editedwhyid;
@@ -195,6 +240,29 @@ class Panel extends PureComponent{
     }else {
       return ''
     }
+  }
+  commenteditSave(pid){
+    let actionparam = {...this.state.actionparam};
+    let paneldata = {...this.state.paneldata}
+    let comments = paneldata.comments;
+    comments.push({
+      "eletype":"comment",
+      "eleid":"comment"+this.getRandomNum(),
+      "comment": this.commentinput.value,
+      "pid":pid
+    })
+    this.setState({
+      actionparam:actionparam,
+      paneldata:paneldata
+    })
+    this.commentinput.value = '';
+  }
+  commenteditClose(){
+    let actionparam = {...this.state.actionparam};
+    actionparam.commentpid = '';
+    this.setState({
+      actionparam:actionparam
+    })
   }
   qaeditClose(){
     let actionparam = {...this.state.actionparam};
@@ -383,6 +451,25 @@ class Panel extends PureComponent{
     this.setState({
       paneldata: paneldata
     })
+  }
+  showcomment(eleid) {
+    const paneldatanew = {...this.state.paneldata};
+    let actionparam = {...this.state.actionparam}; 
+    actionparam.commentpid = eleid; 
+    this.setState({
+      actionparam:actionparam,
+      paneldatanew:paneldatanew
+    }) 
+  }
+  findcomments(eleid){
+    let comments = this.state.paneldata.comments;
+    let elecomment = [];
+    for(let i=0;i<comments.length;i++){
+        if(comments[i].pid == eleid){
+          elecomment.push(comments[i])
+        }
+    }
+    return elecomment;
   }
   getRandomNum(){
     return parseInt(Math.random() * 999999999999)

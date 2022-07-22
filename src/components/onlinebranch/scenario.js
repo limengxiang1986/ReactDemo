@@ -12,6 +12,7 @@ class Scenario extends PureComponent{
     const scenariodata = this.props.scenariodata;
     const css = this.props.css;
     const scenariometrics = scenariodata.rootwhy;
+    const comments = scenariodata.comments;
     //1. tree to treearr
     const whytreearr = this.transtreetoarr(scenariometrics);
     //2. fill treearr position
@@ -30,26 +31,29 @@ class Scenario extends PureComponent{
         {
             whycssarr.map((item, index, allitem)=>{
                 if(item.eletype == 'why'){
-                    return <Why key={item.eleid+index} why={item} css={css}
+                    return <Why key={item.eleid+index} why={item} comments={comments} css={css}
                             addsubwhy={this.props.addsubwhy}
                             addrootcause={this.props.addrootcause}
                             delele={this.props.delele}
                             editqa={this.props.editqa}
                             addscenario={this.props.addscenario}
-                            addcomment={this.props.addcomment}
+                            showcomment={this.props.showcomment}
+                            findcomments={this.props.findcomments}
                            />
                 }else if(item.eletype == 'rootcause'){
-                    return <Rootcause key={item.eleid+index} rootcause={item} css={css} 
+                    return <Rootcause key={item.eleid+index} rootcause={item} comments={comments} css={css} 
                             addsubap={this.props.addsubap}
                             editrootcause={this.props.editrootcause}
                             delele={this.props.delele}
-                            addcomment={this.props.addcomment}
+                            findcomments={this.props.findcomments}
+                            showcomment={this.props.showcomment}
                            />
                 }else if(item.eletype == 'ap'){
-                    return <Ap key={item.eleid+index} ap={item} css={css}
+                    return <Ap key={item.eleid+index} ap={item} comments={comments} css={css}
                             addsubap={this.props.addsubap}
                             delele={this.props.delele}
-                            addcomment={this.props.addcomment}
+                            findcomments={this.props.findcomments}
+                            showcomment={this.props.showcomment}
                            />
                 }else if(item.eletype == 'empty'){
                     return <Empty key={item.eleid+index} isempty="true" css={css} />

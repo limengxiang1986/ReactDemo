@@ -6,6 +6,7 @@ import "antd/dist/antd.css";
 class Ap extends PureComponent{
   render(){
     const ap = this.props.ap
+    const comments = this.props.findcomments(null,ap.eleid);
     return (
       <div className="ap">
         <div className="content">
@@ -25,7 +26,7 @@ class Ap extends PureComponent{
         <div className="apactionpanel">
             {/* <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, ap.eleid)}} title="Create ap" className="acbtn"/>  */}
             <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid)}} title="Delete" className="acbtn"/> 
-            <CommentOutlined className="acbtn" onClick={e=>{this.props.addcomment(e, ap.eleid)}} title="Comment"/>
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,ap.eleid)}} title={"Comment,"+comments.length}/>
         </div>
       </div>
     )

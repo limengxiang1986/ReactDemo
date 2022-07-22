@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 class Rootcause extends PureComponent{
   render(){ 
     const rootcause = this.props.rootcause 
+    const comments = this.props.findcomments(null,rootcause.eleid);
     return (
       <div className="rcaedarootcause"> 
         <div className="content">
@@ -19,7 +20,7 @@ class Rootcause extends PureComponent{
             <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, rootcause.eleid)}} title="Create ap" className="acbtn"/> 
             <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, rootcause.eleid)}} title="Delete" className="acbtn"/> 
             <EditOutlined className="acbtn" onClick={e=>{this.props.editrootcause(e,rootcause.eleid)}} title="Edit"/>
-            <CommentOutlined className="acbtn" onClick={e=>{this.props.addcomment(e,rootcause.eleid)}} title="Comment"/>
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,rootcause.eleid)}} title={"Comment,"+comments.length}/>
         </div>
       </div>
     )
