@@ -20,6 +20,7 @@ class Panel extends PureComponent{
         commentpid:'',
       },
       paneldata : {
+        "onlineid":"onlineid0001",
         "scenarios":[{
           "scenarioid":"scenarioidasdfl01",
           "rootwhy":
@@ -100,20 +101,20 @@ class Panel extends PureComponent{
               ]
             },
           ]
-          }
+          },
+          "comments":[
+            {
+              "eletype":"comment",
+              "eleid":"comment00001",
+              "comment":"it works, useful",
+              "pid":"whyid0001"
+            }
+          ]
       }],
       "aplimit":5,
       "whylimit":5,
       "deeplimit":5,
-      "rootcauselimit":1,
-      "comments":[
-        {
-          "eletype":"comment",
-          "eleid":"comment00001",
-          "comment":"it works, useful",
-          "pid":"whyid0001"
-        }
-      ]
+      "rootcauselimit":1
       }
     }
   }
@@ -244,7 +245,8 @@ class Panel extends PureComponent{
   commenteditSave(pid){
     let actionparam = {...this.state.actionparam};
     let paneldata = {...this.state.paneldata}
-    let comments = paneldata.comments;
+    let scenario = this.findscenario(pid, paneldata)
+    let comments = scenario.comments;
     comments.push({
       "eletype":"comment",
       "eleid":"comment"+this.getRandomNum(),
@@ -312,6 +314,16 @@ class Panel extends PureComponent{
     for(let i=0;i<ele.subeles.length;i++){
       return this.findleafele(ele.subeles[i].eleid,paneldata);
     }
+  }
+  findscenario(eleid,paneldata){
+    let w = ''
+    for(let i=0;i<paneldata.scenarios.length;i++){
+      w = this.findwhyunderwhy(eleid, paneldata.scenarios[i].rootwhy);
+      if(w) {
+        return paneldata.scenarios[i];
+      }
+    }
+    return w;
   }
   findele(whyid,paneldata){
     let w = ''
@@ -462,7 +474,11 @@ class Panel extends PureComponent{
     }) 
   }
   findcomments(eleid){
-    let comments = this.state.paneldata.comments;
+    if(!eleid){
+      return []
+    }
+    let scenario = this.findscenario(eleid, this.state.paneldata);
+    let comments = scenario.comments;
     let elecomment = [];
     for(let i=0;i<comments.length;i++){
         if(comments[i].pid == eleid){
