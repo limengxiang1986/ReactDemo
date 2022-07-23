@@ -6,10 +6,11 @@ import "antd/dist/antd.css";
 
 class Rootcause extends PureComponent{
   render(){ 
-    const rootcause = this.props.rootcause 
+    const rootcause = this.props.rootcause;
+    const css = this.props.css;
     const comments = this.props.findcomments(null,rootcause.eleid);
     return (
-      <div className="rcaedarootcause"> 
+      <div className="rcaedarootcause" style={{height: css.multiple*css.eleheight+"px"}}>> 
         <div className="content">
           <div className="title" >
               Root Cause

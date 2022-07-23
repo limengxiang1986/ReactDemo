@@ -36,7 +36,7 @@ class Scenario extends PureComponent{
 
     const rsize = whymetrics.length;
     const csize = whymetrics[0].length;
-    const heightc = (rsize-1)*css.eleheight + css.theadheight+ (rsize)*css.marginbottom+"px";   //thead height(50px) + tbody height(250*rsize)
+    const heightc = css.multiple*((rsize-1)*css.eleheight + css.theadheight+ (rsize)*css.marginbottom)+"px";   //thead height(50px) + tbody height(250*rsize)
     const widthc = csize*css.elewidth+"px";
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>

@@ -4,15 +4,16 @@ import { PureComponent } from "react";
 class Empty extends PureComponent{
   render(){
     const isempty = this.props.isempty;
+    const css = this.props.css;
     return (
         <>
-            {this.renderContent(isempty)}
+            {this.renderContent(isempty,css)}
         </>
     )
   }
-  renderContent = (isempty) =>{
+  renderContent = (isempty,css) =>{
     if(isempty=="true"){
-        return <div className="emptywhy"></div>
+        return <div className="emptywhy" style={{height: css.multiple*css.eleheight+"px"}}></div>
     }else {
         return '';
     }

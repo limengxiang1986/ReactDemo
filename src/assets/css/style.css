@@ -376,6 +376,11 @@ body{
     margin: 5px;
     color: #fff;
 }
+.scenarioicon{
+    font-size: 35px;
+    margin-left: 25px;
+    margin-right: 25px;
+}
 
 .panel>.comments{
 }

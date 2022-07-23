@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
 import Comment from "./comment";
+import { ZoomInOutlined,ZoomOutOutlined  } from '@ant-design/icons';
 
 class Panel extends PureComponent{
   constructor(props){
@@ -12,7 +13,8 @@ class Panel extends PureComponent{
         elewidth:250,
         theadheight:50,
         marginbottom:5,
-        marginright:5
+        marginright:5,
+        multiple:1.1,
       },
       actionparam:{
         editedwhyid:'',
@@ -156,6 +158,8 @@ class Panel extends PureComponent{
          <button className="scenariobtn" onClick={e=>{
            this.toggleStyle()
           }}>toggle style</button>
+          <ZoomInOutlined onClick={e=>{this.ZommIn()}} className="scenarioicon"/>
+          <ZoomOutOutlined onClick={e=>{this.ZommOut()}} className="scenarioicon"/>
       </div>
     )
   }
@@ -414,7 +418,25 @@ class Panel extends PureComponent{
     this.setState({
       paneldata: paneldata
     })
-  } 
+  }
+  ZommIn(){
+    const css = {...this.state.css};
+    if(css.multiple < 1.4){
+      css.multiple = css.multiple + 0.1;
+    }
+    this.setState({
+      css:css,
+    })
+  }
+  ZommOut(){
+    const css = {...this.state.css};
+    if(css.multiple > 1){
+      css.multiple = css.multiple - 0.1;
+    }
+    this.setState({
+      css:css,
+    })
+  }
   genEmptyAp(peleid){
     return {
       "eletype":"ap",

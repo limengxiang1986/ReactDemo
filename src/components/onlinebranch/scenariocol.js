@@ -9,7 +9,7 @@ class ScenarioCol extends PureComponent{
     const scenariocol = this.props.scenariocol;
     const css = this.props.css;
     return (
-      <div className="scenariocol" style={{height: css.eleheight*scenariocol.rsize+(scenariocol.rsize-1)*css.marginbottom+"px"}}>
+      <div className="scenariocol" style={{height: css.multiple*(css.eleheight*scenariocol.rsize+(scenariocol.rsize-1)*css.marginbottom)+"px"}}>
         <div className="content">
           <div style={{fontSize:"21px"}}>
             {scenariocol.scenariodescription}

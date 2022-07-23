@@ -9,7 +9,8 @@ class ScenarioThead extends PureComponent{
     const scenariothead = this.props.scenariothead;
     const css = this.props.css;
     return (
-      <div className="scenariothead" style={{padding:scenariothead.padding, 
+      <div className="scenariothead" style={{height: css.multiple*css.theadheight+"px",
+                                             padding:scenariothead.padding, 
                                              backgroundColor:scenariothead.backgroundcolor,
                                              color:scenariothead.color
                                             }}>

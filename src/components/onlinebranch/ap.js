@@ -5,10 +5,11 @@ import "antd/dist/antd.css";
 
 class Ap extends PureComponent{
   render(){
-    const ap = this.props.ap
+    const ap = this.props.ap;
+    const css = this.props.css;
     const comments = this.props.findcomments(null,ap.eleid);
     return (
-      <div className="ap">
+      <div className="ap" style={{height: css.multiple*css.eleheight+"px"}}>
         <div className="content">
           <div className="title" >
               Action Proposal
