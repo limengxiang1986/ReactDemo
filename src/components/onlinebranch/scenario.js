@@ -1,7 +1,8 @@
 import { InfoCircleTwoTone } from "@ant-design/icons";
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
-import Rootcause from './rootcause'
+import Rootcause from './rootcause';
+import Scenariotitle from './scenariotitle';
 import Why from './why';
 import Empty from "./emptyele";
 import Ap from "./ap";
@@ -10,6 +11,8 @@ import Ap from "./ap";
 class Scenario extends PureComponent{
   render(){
     const scenariodata = this.props.scenariodata;
+    const scenariomc = this.props.scenariodata.scenariomc;
+    const scenariodescription = this.props.scenariodata.scenariodescription;
     const css = this.props.css;
     const scenariometrics = scenariodata.rootwhy;
     const comments = scenariodata.comments;
@@ -18,8 +21,10 @@ class Scenario extends PureComponent{
     //2. fill treearr position
     this.filltreearrposition(whytreearr);
     //3. make why metrics
-    const whymetrics = this.makewhymetrics(whytreearr);
-    //4. make whycssarr
+    let whymetrics = this.makewhymetrics(whytreearr);
+    //4. fill metrics with title and scenario 
+    whymetrics = this.fillwhymetricswithtitleandscenario(whymetrics,scenariomc,scenariodescription);
+    //5. make whycssarr
     const whycssarr = this.makewhycssarr(whymetrics);
 
     const rsize = whytreearr[0].rsize;
@@ -55,6 +60,9 @@ class Scenario extends PureComponent{
                             findcomments={this.props.findcomments}
                             showcomment={this.props.showcomment}
                            />
+                }else if(item.eletype == 'scenariotitle'){
+                    return <Scenariotitle key={item.eleid+index} scenariotitle={item} css={css}
+                           />
                 }else if(item.eletype == 'empty'){
                     return <Empty key={item.eleid+index} isempty="true" css={css} />
                 }
@@ -67,11 +75,18 @@ class Scenario extends PureComponent{
     let whycssarr = [];
     //scan from col to row
     let csize = whymetrics[0].length;
+    whycssarr.push(whymetrics[0][0].ele);
     for(let i=0;i<csize;i++){
         for(let j=0;j<whymetrics.length;j++){
-            if(whycssarr.indexOf(whymetrics[j][i].ele) == -1){
-                whycssarr.push(whymetrics[j][i].ele);
+          let existsflag = false
+          for(let k=0;k<whycssarr.length;k++){
+            if(whycssarr[k].eleid == whymetrics[j][i].ele.eleid){
+              existsflag = true
             }
+          }
+          if(!existsflag){
+            whycssarr.push(whymetrics[j][i].ele);
+          }
         }
     }
     return whycssarr;
@@ -120,6 +135,31 @@ class Scenario extends PureComponent{
         }
     }
     return emptymetrics
+  }
+  fillwhymetricswithtitleandscenario(whymetrics,scenariomc,scenariodescription){
+      let rsize = whymetrics.length;
+      let csize = whymetrics[0].length;
+      let newwhymetrics = whymetrics.slice();
+      //append a new row, append a new col for each row
+      for(let i=0;i<newwhymetrics.length;i++){
+        newwhymetrics[i].unshift("");
+      }
+      // newwhymetrics.unshift(newwhymetrics[0].slice());   //add thead
+      // fillwithscenario
+      for(let i=0;i<newwhymetrics.length;i++){
+        newwhymetrics[i][0] = {
+          "ele":{
+            "eletype":"scenariotitle",
+            "eleid":"scenariotitle",
+            "scenariomc":scenariomc,
+            "scenariodescription":scenariodescription,
+            "rsize":newwhymetrics.length,
+            "csize":newwhymetrics[0].length
+          },
+          "value":1
+        };
+      }
+      return newwhymetrics;
   }
   transtreetoarr(rootwhy){
     let rootwhy1 = {...rootwhy};

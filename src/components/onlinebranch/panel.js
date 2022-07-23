@@ -22,7 +22,9 @@ class Panel extends PureComponent{
       paneldata : {
         "onlineid":"onlineid0001",
         "scenarios":[{
-          "scenarioid":"scenarioidasdfl01",
+          "scenarioid":"rca01",
+          "scenariomc":"where was the fault introduced?",
+          "scenariodescription":"where was the fault introduced?",
           "rootwhy":
           {
           "eletype":"why",
