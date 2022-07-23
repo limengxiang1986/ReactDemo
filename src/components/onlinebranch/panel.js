@@ -10,6 +10,7 @@ class Panel extends PureComponent{
       css:{
         eleheight:250,
         elewidth:250,
+        theadheight:50,
         marginbottom:5,
         marginright:5
       },
@@ -18,6 +19,7 @@ class Panel extends PureComponent{
         editedrootcauseid:'',
         editedapid:'',
         commentpid:'',
+        styletype:'group',  //continuity,group
       },
       paneldata : {
         "onlineid":"onlineid0001",
@@ -126,7 +128,7 @@ class Panel extends PureComponent{
       <div className="panel">
         {
           paneldata.scenarios.map((item , index, allline)=>{
-            return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} getRandomNum={this.getRandomNum}
+            return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} actionparam={this.state.actionparam} getRandomNum={this.getRandomNum}
                   addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
                   addrootcause={(e,whyid)=>this.addrootcause(whyid)}
                   delele={(e,eleid)=>this.delele(eleid)}
@@ -148,9 +150,12 @@ class Panel extends PureComponent{
         {
            this.renderComments()
         }
-        <button className="addscenario" onClick={e=>{
+        <button className="scenariobtn" onClick={e=>{
           this.addscenario()
          }}>add a scenario</button>
+         <button className="scenariobtn" onClick={e=>{
+           this.toggleStyle()
+          }}>toggle style</button>
       </div>
     )
   }
@@ -449,6 +454,8 @@ class Panel extends PureComponent{
   genEmptyScenario(){
     return {
       "scenarioid":"scenarioid"+this.getRandomNum(),
+      "scenariomc":"where was the fault introduced?",
+      "scenariodescription":"where was the fault introduced?",
       "rootwhy":
       {
       "eletype":"why",
@@ -457,13 +464,21 @@ class Panel extends PureComponent{
       "answer":this.getRandomNum(),
       "pid":"",
       "subeles":[]
-      }}
+      },
+      "comments":[]}
   }
   addscenario(){
     const paneldata = {...this.state.paneldata};
     paneldata.scenarios.push(this.genEmptyScenario());
     this.setState({
       paneldata: paneldata
+    })
+  }
+  toggleStyle(){
+    const actionparam = {...this.state.actionparam};
+    actionparam.styletype = actionparam.styletype == 'group' ? 'continuity' : 'group';
+    this.setState({
+      actionparam: actionparam
     })
   }
   showcomment(eleid) {

@@ -2,7 +2,8 @@ import { InfoCircleTwoTone } from "@ant-design/icons";
 import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
 import Rootcause from './rootcause';
-import Scenariotitle from './scenariotitle';
+import ScenarioCol from './scenariocol';
+import ScenarioThead from './scenariothead';
 import Why from './why';
 import Empty from "./emptyele";
 import Ap from "./ap";
@@ -10,26 +11,32 @@ import Ap from "./ap";
 
 class Scenario extends PureComponent{
   render(){
+    const actionparam = this.props.actionparam;
     const scenariodata = this.props.scenariodata;
     const scenariomc = this.props.scenariodata.scenariomc;
     const scenariodescription = this.props.scenariodata.scenariodescription;
     const css = this.props.css;
     const scenariometrics = scenariodata.rootwhy;
-    const comments = scenariodata.comments;
+    const comments = scenariodata.comments; 
     //1. tree to treearr
     const whytreearr = this.transtreetoarr(scenariometrics);
     //2. fill treearr position
     this.filltreearrposition(whytreearr);
     //3. make why metrics
-    let whymetrics = this.makewhymetrics(whytreearr);
+    let whymetrics = this.makewhymetrics(whytreearr); // style1: rootcause direct follow why, style2: fill rootcause and why with empty node if why index less than max why index. 
+    if(actionparam.styletype == 'group'){
+      whymetrics = this.makewhymetricsgroup(whymetrics);
+    }else if(actionparam.styletype == 'continuity'){
+
+    }
     //4. fill metrics with title and scenario 
-    whymetrics = this.fillwhymetricswithtitleandscenario(whymetrics,scenariomc,scenariodescription);
+    whymetrics = this.fillwhymetricswiththeadandscenariocol(whymetrics,scenariomc,scenariodescription);
     //5. make whycssarr
     const whycssarr = this.makewhycssarr(whymetrics);
 
-    const rsize = whytreearr[0].rsize;
-    const csize = whytreearr[0].csize;
-    const heightc = rsize*css.eleheight + (rsize)*css.marginbottom+"px";
+    const rsize = whymetrics.length;
+    const csize = whymetrics[0].length;
+    const heightc = (rsize-1)*css.eleheight + css.theadheight+ (rsize)*css.marginbottom+"px";   //thead height(50px) + tbody height(250*rsize)
     const widthc = csize*css.elewidth+"px";
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>
@@ -60,9 +67,12 @@ class Scenario extends PureComponent{
                             findcomments={this.props.findcomments}
                             showcomment={this.props.showcomment}
                            />
-                }else if(item.eletype == 'scenariotitle'){
-                    return <Scenariotitle key={item.eleid+index} scenariotitle={item} css={css}
+                }else if(item.eletype == 'scenariocol'){
+                    return <ScenarioCol key={item.eleid+index} scenariocol={item} css={css}
                            />
+                }else if(item.eletype == 'scenariothead'){
+                  return <ScenarioThead key={item.eleid+index} scenariothead={item} css={css}
+                         />
                 }else if(item.eletype == 'empty'){
                     return <Empty key={item.eleid+index} isempty="true" css={css} />
                 }
@@ -125,7 +135,7 @@ class Scenario extends PureComponent{
     for(let i=0;i<emptymetrics.length;i++){
         for(let j=0;j<emptymetrics[i].length;j++){
             if(emptymetrics[i][j].value == 0 && emptymetrics[i][j].ele == null){
-                emptymetrics[i][j] = {ele:{eletype:"empty",isblank:true,eleid:this.props.getRandomNum()},value:1}
+                emptymetrics[i][j] = this.newEmpty()
             }
             // set blank colsize if it's a leafnode, for cssarr use
             if(emptymetrics[i][j].ele.isleafnode == true){
@@ -136,21 +146,76 @@ class Scenario extends PureComponent{
     }
     return emptymetrics
   }
-  fillwhymetricswithtitleandscenario(whymetrics,scenariomc,scenariodescription){
+  newEmpty() {
+    return { ele: { eletype: "empty", isblank: true, eleid: this.props.getRandomNum() }, value: 1 };
+  }
+  makewhymetricsgroup(whymetrics){
+    let maxwhycol = 0;
+    let maxrootapsize = 0;
+    let maxgroupcolsize = 0;   //the maxwhysize + maxrootapsize is maxgroupcolsize
+    // find maxwhycol
+    for(let i=0;i<whymetrics.length;i++){
+      let groupcolsize = 0
+      for(let j=0;j<whymetrics[i].length;j++){
+        if(whymetrics[i][j].ele.eletype == 'why' ){
+          maxwhycol = j > maxwhycol ? j : maxwhycol;
+        }
+        if(['rootcause','ap'].indexOf(whymetrics[i][j].ele.eletype)>-1){
+          groupcolsize += 1
+          if(groupcolsize > maxrootapsize){
+            maxrootapsize = groupcolsize;
+          }
+        }
+      }
+    }
+    // expand metrics if maxgroupcolsize large than whymetrics's col size each row
+    maxgroupcolsize = maxwhycol+1+maxrootapsize;
+    const currentCols = whymetrics[0].length;
+    if(maxgroupcolsize > currentCols){
+      for(let i=0;i<whymetrics.length;i++){
+        for(let j=0;j<maxgroupcolsize-currentCols;j++){
+          whymetrics[i].push(this.newEmpty());
+        }
+      }
+    }
+    // find rootcause which index larger than or equal to maxwhycol, fill with empty
+    for(let i=0;i<whymetrics.length;i++){ 
+      for(let j=0;j<whymetrics[i].length;j++){
+        if(whymetrics[i][j].ele.eletype == 'rootcause' && j <= maxwhycol ){
+          // copy rootcause+aps to maxwhcol's next node 
+          whymetrics[i].copyWithin(maxwhycol+1,j)
+          // fill node which between rootcause and lastwhycol of this row with empty
+          for(let k=j;k<=maxwhycol;k++){
+            whymetrics[i][k] = this.newEmpty()
+          }
+        }
+      }
+    }
+    return whymetrics;
+  }
+  fillwhymetricswiththeadandscenariocol(whymetrics,scenariomc,scenariodescription){
       let rsize = whymetrics.length;
       let csize = whymetrics[0].length;
+      let maxwhycol = 0
+      for(let i=0;i<whymetrics.length;i++){
+        for(let j=0;j<whymetrics[i].length;j++){
+          if(whymetrics[i][j].ele.eletype == 'why' ){
+            maxwhycol = j > maxwhycol ? j : maxwhycol;
+          }
+        } 
+      }
       let newwhymetrics = whymetrics.slice();
+      // 1. fill with scenario col
       //append a new row, append a new col for each row
       for(let i=0;i<newwhymetrics.length;i++){
         newwhymetrics[i].unshift("");
       }
-      // newwhymetrics.unshift(newwhymetrics[0].slice());   //add thead
       // fillwithscenario
       for(let i=0;i<newwhymetrics.length;i++){
         newwhymetrics[i][0] = {
           "ele":{
-            "eletype":"scenariotitle",
-            "eleid":"scenariotitle",
+            "eletype":"scenariocol",
+            "eleid":"scenariocol",
             "scenariomc":scenariomc,
             "scenariodescription":scenariodescription,
             "rsize":newwhymetrics.length,
@@ -158,6 +223,64 @@ class Scenario extends PureComponent{
           },
           "value":1
         };
+      }
+      // 2. fill with thead
+      newwhymetrics.unshift(newwhymetrics[0].slice());   //add thead
+      // set thead
+      for(let i=0;i<newwhymetrics[0].length;i++){
+        if(i==0) {
+          newwhymetrics[0][i] = {
+            "ele": {
+              "eletype":"scenariothead",
+              "eleid":"scenariothead"+i,
+              "theadcontent":"Scenario",
+              "padding": "7px 0px 0px 85px",
+              "rsize": 1,
+              "csize": 1
+            },
+            "value": 1
+          }
+        } else if(i>0 && i <= maxwhycol+1) {   //scenario + whyscols = 1 + maxwhycols
+          newwhymetrics[0][i] = {
+            "ele":{
+              "eletype":"scenariothead",
+              "eleid":"scenariothead"+i,
+              "theadcontent":"Why"+(i),
+              "backgroundcolor":"",
+              "padding": "7px 0px 0px 100px",
+              "rsize": 1,
+              "csize": 1
+            },
+            "value":1
+          }
+        } else if(i == maxwhycol+2) {  //rootcause col index
+          newwhymetrics[0][i] = {
+            "ele":{
+              "eletype":"scenariothead",
+              "eleid":"rootcause"+i,
+              "theadcontent":"Root Cause",
+              "backgroundcolor":"#FFCC00",
+              "padding": "7px 0px 0px 70px",
+              "color":"#545557",
+              "rsize": 1,
+              "csize": 1
+            },
+            "value":1
+          }
+        } else if(i > maxwhycol+2) {  //ap col index
+          newwhymetrics[0][i] = {
+            "ele":{
+              "eletype":"scenariothead",
+              "eleid":"ap"+i,
+              "theadcontent":"Action Proposal",
+              "backgroundcolor":"#3DAA00",
+              "padding": "7px 0px 0px 50px",
+              "rsize": 1,
+              "csize": 1
+            },
+            "value":1
+          }
+        }
       }
       return newwhymetrics;
   }

@@ -366,7 +366,7 @@ body{
     font-size: 20px;
     color: #ACAF76;
 }
-.addscenario{
+.scenariobtn{
     border-radius: 4px;
     background-color: rgb(41, 184, 141);
     font-size: 25px;
@@ -431,7 +431,7 @@ body{
     margin-right: 200px;
 }
 
-.panel>.scenario>.scenariotitle{ 
+.panel>.scenario>.scenariocol{ 
     width: 250px;
     height: 250px;
     margin-right:5px;
@@ -440,10 +440,10 @@ body{
     flex-shrink: 0;     /**aviod flexible*/
     border-radius: 5px;
 }
-.panel>.scenario>.scenariotitle>.content{
+.panel>.scenario>.scenariocol>.content{
     float: left;
 }
-.panel>.scenario>.scenariotitle>.content>.title{
+.panel>.scenario>.scenariocol>.content>.title{
     background-color: #194A96;
     width: 120px;
     border-radius: 3px 0px 10px 0px;
@@ -452,3 +452,23 @@ body{
     padding: 0px 5px 3px 5px;
     font-size: 16px;
 }
+.panel>.scenario>.scenariothead{ 
+    width: 250px;
+    height: 50px;
+    margin-right:5px;
+    margin-bottom: 5px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 7px 0px 0px 100px;
+    color: #fff;
+    font-size: 27px;
+    background-color: #194A96;
+    flex-shrink: 0;     /**aviod flexible*/
+    border-radius: 5px;
+}
+.panel>.scenario>.scenariothead>.content{
+    float: left;
+}
+
+
+
