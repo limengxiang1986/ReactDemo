@@ -15,6 +15,7 @@ class Panel extends PureComponent{
         marginbottom:5,
         marginright:5,
         multiple:1,
+        highlightborder:"3px solid lightcoral",
       },
       actionparam:{
         editedwhyid:'',
@@ -22,6 +23,12 @@ class Panel extends PureComponent{
         editedapid:'',
         commentpid:'',
         styletype:'group',  //continuity,group
+        showhighlight:false,
+        highlightele:'',
+        aplimit:5,
+        whylimit:5,
+        deeplimit:5,
+        rootcauselimit:1
       },
       paneldata : {
         "onlineid":"onlineid0001",
@@ -116,11 +123,7 @@ class Panel extends PureComponent{
               "pid":"whyid0001"
             }
           ]
-      }],
-      "aplimit":5,
-      "whylimit":5,
-      "deeplimit":5,
-      "rootcauselimit":1
+      }]
       }
     }
   }
@@ -131,6 +134,7 @@ class Panel extends PureComponent{
         {
           paneldata.scenarios.map((item , index, allline)=>{
             return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} actionparam={this.state.actionparam} getRandomNum={this.getRandomNum}
+                  showhighlight={(e,eleid)=>this.showhighlight(eleid)}
                   addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
                   addrootcause={(e,whyid)=>this.addrootcause(whyid)}
                   delele={(e,eleid)=>this.delele(eleid)}
@@ -372,11 +376,20 @@ class Panel extends PureComponent{
   addsubwhy(whyid){
     const paneldata = {...this.state.paneldata};
     const why = this.findele(whyid, paneldata);
+    let deeplevel = 0;
+    let tmpwhyid = why.eleid;
+    while(tmpwhyid != ""){
+      let twhy = this.findele(this.findele(tmpwhyid, paneldata).pid, paneldata);
+      tmpwhyid = twhy ? twhy.eleid : '';
+      deeplevel += 1;
+    }
     console.log(why);
-    why.subeles.push(this.genEmptyWhy(whyid));
-    this.setState({
-      paneldata: paneldata
-    })
+    if(deeplevel < this.state.actionparam.whylimit){
+      why.subeles.push(this.genEmptyWhy(whyid));
+      this.setState({
+        paneldata: paneldata
+      })
+    }
   }
   editqa(eleid){
     this.setState({
@@ -508,8 +521,8 @@ class Panel extends PureComponent{
     let actionparam = {...this.state.actionparam}; 
     actionparam.commentpid = eleid; 
     this.setState({
-      actionparam:actionparam,
-      paneldatanew:paneldatanew
+      actionparam: actionparam,
+      paneldatanew: paneldatanew
     }) 
   }
   findcomments(eleid){
@@ -525,6 +538,14 @@ class Panel extends PureComponent{
         }
     }
     return elecomment;
+  }
+  showhighlight(eleid){
+    const actionparam = {...this.state.actionparam};
+    actionparam.showhighlight = true;
+    actionparam.highlightele = eleid;
+    this.setState({
+      actionparam:actionparam
+    })
   }
   getRandomNum(){
     return parseInt(Math.random() * 999999999999)

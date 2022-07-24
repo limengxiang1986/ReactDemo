@@ -36,14 +36,15 @@ class Scenario extends PureComponent{
 
     const rsize = whymetrics.length;
     const csize = whymetrics[0].length;
-    const heightc = css.multiple*((rsize-1)*css.eleheight + css.theadheight+ (rsize)*css.marginbottom)+"px";   //thead height(50px) + tbody height(250*rsize)
-    const widthc = css.multiple*(csize*css.elewidth+csize*css.marginright)+"px";
+    const heightc = css.multiple*((rsize-1)*css.eleheight + css.theadheight)+ (rsize)*css.marginbottom+"px";   //thead height(50px) + tbody height(250*rsize)
+    const widthc = css.multiple*(csize*css.elewidth)+csize*css.marginright+"px";
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>
         {
             whycssarr.map((item, index, allitem)=>{
                 if(item.eletype == 'why'){
                     return <Why key={item.eleid+index} why={item} comments={comments} css={css}
+                            showhighlight={this.props.showhighlight}
                             addsubwhy={this.props.addsubwhy}
                             addrootcause={this.props.addrootcause}
                             delele={this.props.delele}
@@ -54,6 +55,7 @@ class Scenario extends PureComponent{
                            />
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} comments={comments} css={css} 
+                            showhighlight={this.props.showhighlight}
                             addsubap={this.props.addsubap}
                             editrootcause={this.props.editrootcause}
                             delele={this.props.delele}
@@ -62,6 +64,7 @@ class Scenario extends PureComponent{
                            />
                 }else if(item.eletype == 'ap'){
                     return <Ap key={item.eleid+index} ap={item} comments={comments} css={css}
+                            showhighlight={this.props.showhighlight}
                             addsubap={this.props.addsubap}
                             delele={this.props.delele}
                             findcomments={this.props.findcomments}

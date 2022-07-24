@@ -18,7 +18,7 @@ class Why extends PureComponent{
   }
   renderContent = (why,css,comments) =>{
     let eleid = why.eleid; 
-    return <div className="why" style={{height: css.multiple*(css.eleheight*why.rsize+(why.rsize-1)*css.marginbottom)+"px",
+    return <div className="why" style={{height: css.multiple*(css.eleheight*why.rsize)+(why.rsize-1)*css.marginbottom+"px",
                                         width: css.multiple*(css.elewidth)+"px"}}>
             <div className="whyqa" >
                 <div className="whyqatitleq" >
