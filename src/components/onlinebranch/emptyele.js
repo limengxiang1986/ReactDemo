@@ -13,7 +13,8 @@ class Empty extends PureComponent{
   }
   renderContent = (isempty,css) =>{
     if(isempty=="true"){
-        return <div className="emptywhy" style={{height: css.multiple*css.eleheight+"px"}}></div>
+        return <div className="emptywhy" style={{height: css.multiple*css.eleheight+"px",
+                                                 width: css.multiple*(css.elewidth)+"px",}}></div>
     }else {
         return '';
     }

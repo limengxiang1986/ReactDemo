@@ -10,7 +10,8 @@ class Rootcause extends PureComponent{
     const css = this.props.css;
     const comments = this.props.findcomments(null,rootcause.eleid);
     return (
-      <div className="rcaedarootcause" style={{height: css.multiple*css.eleheight+"px"}}> 
+      <div className="rcaedarootcause" style={{height: css.multiple*css.eleheight+"px",
+                                               width: css.multiple*(css.elewidth)+"px",}}> 
         <div className="content">
           <div className="title" >
               Root Cause

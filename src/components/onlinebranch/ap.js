@@ -9,7 +9,8 @@ class Ap extends PureComponent{
     const css = this.props.css;
     const comments = this.props.findcomments(null,ap.eleid);
     return (
-      <div className="ap" style={{height: css.multiple*css.eleheight+"px"}}>
+      <div className="ap" style={{height: css.multiple*css.eleheight+"px",
+                                  width: css.multiple*(css.elewidth)+"px",}}>
         <div className="content">
           <div className="title" >
               Action Proposal
@@ -18,11 +19,9 @@ class Ap extends PureComponent{
             Preventive Action Proposal
           </div>
           <div>Root Cause Category</div>
-          <div><input />{ap.ele1}</div>
+          <div><input defaultValue={ap.ele1}/></div>
           <div>Root Cause Subcategory</div>
-          <div><input />{ap.ele2}</div>
-          <div>RCA Action Type</div>
-          <div><input />{ap.ele3}</div>
+          <div><input defaultValue={ap.ele2}/></div>
         </div>
         <div className="apactionpanel">
             {/* <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, ap.eleid)}} title="Create ap" className="acbtn"/>  */}

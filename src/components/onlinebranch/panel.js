@@ -9,12 +9,12 @@ class Panel extends PureComponent{
     super(props);
     this.state={
       css:{
-        eleheight:250,
-        elewidth:250,
-        theadheight:50,
+        eleheight:210,
+        elewidth:210,
+        theadheight:30,
         marginbottom:5,
         marginright:5,
-        multiple:1.1,
+        multiple:1,
       },
       actionparam:{
         editedwhyid:'',
@@ -430,7 +430,7 @@ class Panel extends PureComponent{
   }
   ZommOut(){
     const css = {...this.state.css};
-    if(css.multiple > 1){
+    if(css.multiple > 0.1){
       css.multiple = css.multiple - 0.1;
     }
     this.setState({

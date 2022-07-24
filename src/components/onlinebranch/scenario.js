@@ -37,7 +37,7 @@ class Scenario extends PureComponent{
     const rsize = whymetrics.length;
     const csize = whymetrics[0].length;
     const heightc = css.multiple*((rsize-1)*css.eleheight + css.theadheight+ (rsize)*css.marginbottom)+"px";   //thead height(50px) + tbody height(250*rsize)
-    const widthc = csize*css.elewidth+"px";
+    const widthc = css.multiple*(csize*css.elewidth+csize*css.marginright)+"px";
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>
         {
@@ -234,20 +234,20 @@ class Scenario extends PureComponent{
               "eletype":"scenariothead",
               "eleid":"scenariothead"+i,
               "theadcontent":"Scenario",
-              "padding": "7px 0px 0px 85px",
+              "padding": "0px 0px 0px 60px",
               "rsize": 1,
               "csize": 1
             },
             "value": 1
           }
-        } else if(i>0 && i <= maxwhycol+1) {   //scenario + whyscols = 1 + maxwhycols
+        } else if(i>0 && i <= maxwhycol+1) {   // why, scenario + whyscols = 1 + maxwhycols
           newwhymetrics[0][i] = {
             "ele":{
               "eletype":"scenariothead",
               "eleid":"scenariothead"+i,
               "theadcontent":"Why"+(i),
               "backgroundcolor":"",
-              "padding": "7px 0px 0px 100px",
+              "padding": "0px 0px 0px 70px",
               "rsize": 1,
               "csize": 1
             },
@@ -260,7 +260,7 @@ class Scenario extends PureComponent{
               "eleid":"rootcause"+i,
               "theadcontent":"Root Cause",
               "backgroundcolor":"#FFCC00",
-              "padding": "7px 0px 0px 70px",
+              "padding": "0px 0px 0px 50px",
               "color":"#545557",
               "rsize": 1,
               "csize": 1
@@ -274,7 +274,7 @@ class Scenario extends PureComponent{
               "eleid":"ap"+i,
               "theadcontent":"Action Proposal",
               "backgroundcolor":"#3DAA00",
-              "padding": "7px 0px 0px 50px",
+              "padding": "0px 0px 0px 30px",
               "rsize": 1,
               "csize": 1
             },

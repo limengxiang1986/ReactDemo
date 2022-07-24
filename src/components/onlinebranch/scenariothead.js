@@ -10,6 +10,7 @@ class ScenarioThead extends PureComponent{
     const css = this.props.css;
     return (
       <div className="scenariothead" style={{height: css.multiple*css.theadheight+"px",
+                                             width: css.multiple*(css.elewidth)+"px",
                                              padding:scenariothead.padding, 
                                              backgroundColor:scenariothead.backgroundcolor,
                                              color:scenariothead.color
