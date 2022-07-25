@@ -1,0 +1,30 @@
+.ap{
+    height: 250px;
+    margin-right:5px;
+    width: 250px;
+    background-color: #3DAA00;
+    flex-shrink: 0;
+    border-radius: 5px;
+    // margin: 2px;
+    .content{
+        float: left;
+    }
+    .content input{
+        border: 1px solid #000;
+        margin-left: 5px;
+        background-color: #3DAA00;
+    }
+    .apactionpanel{
+        float: right;
+        width: 30px;
+        height: 100%;
+        background-color: #3761A3;
+        border-radius: 0px 5px 5px 0px;
+    }
+    .acbtn{
+        display: block;
+        margin-top: 10px;
+        font-size: 20px;
+        color: #ACAF76;
+    }
+}

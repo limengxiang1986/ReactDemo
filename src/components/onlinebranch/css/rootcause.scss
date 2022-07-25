@@ -1,0 +1,25 @@
+.rcaedarootcause{
+    height: 250px;
+    margin-right:5px;
+    width: 250px;
+    background-color: #FFCC00;
+    flex-shrink: 0;     /**aviod flexible*/
+    border-radius: 5px;
+    margin: 2px;
+    .content{
+        float: left;
+    }
+    .rcaedarootcauseactionpanel{
+        float: right;
+        width: 30px;
+        height: 100%;
+        background-color: #3761A3;
+        border-radius: 0px 5px 5px 0px;
+    }
+    .acbtn{
+        display: block;
+        margin-top: 10px;
+        font-size: 20px;
+        color: #ACAF76;
+    }
+}

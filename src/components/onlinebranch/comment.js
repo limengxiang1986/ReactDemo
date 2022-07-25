@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import {MinusCircleOutlined,AmazonOutlined,CommentOutlined} 
         from '@ant-design/icons'
 import "antd/dist/antd.css";
+import './css/comment.scss'
 
 class Comment extends PureComponent{
     render(){

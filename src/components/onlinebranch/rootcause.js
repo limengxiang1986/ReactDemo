@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {AmazonOutlined,MinusCircleOutlined,CommentOutlined,EditOutlined} 
         from '@ant-design/icons'
 import "antd/dist/antd.css";
-
+import './css/rootcause.scss'
 class Rootcause extends PureComponent{
   render(){ 
     const rootcause = this.props.rootcause;

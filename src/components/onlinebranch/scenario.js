@@ -7,6 +7,7 @@ import ScenarioThead from './scenariothead';
 import Why from './why';
 import Empty from "./emptyele";
 import Ap from "./ap";
+import './css/scenario.scss'
 
 
 class Scenario extends PureComponent{

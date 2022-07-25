@@ -1,5 +1,5 @@
 import { PureComponent } from "react"; 
-
+import './css/emptywhy.scss'
 
 class Empty extends PureComponent{
   render(){

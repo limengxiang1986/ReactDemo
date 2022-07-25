@@ -1,0 +1,50 @@
+.why{
+    width: 250px;
+    height: 250px;
+    margin-right:7px;
+    margin-bottom: 5px;
+    background-color: #A9BBD9;
+    border-radius: 5px;
+    .whyqa{
+        float: left;
+        .whyqatitleq{
+            background-color: #194A96;
+            width: 120px;
+            border-radius: 3px 0px 10px 0px;
+            color: #fff;
+            padding: 0px 5px 3px 5px;
+            font-size: 16px;
+        }
+        .whyqacontentq{
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        .whyqatitlea{
+            background-color: #194A96;
+            width: 80px;
+            border-radius: 3px 0px 10px 0px;
+            color: #fff;
+            padding: 0px 5px 3px 5px;
+            font-size: 16px;
+        }
+        .whyqacontente{
+            font-size: 16px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+    }
+    .whyqaactionpanel{
+        float: right;
+        width: 30px;
+        height: 100%;
+        background-color: #3761A3;
+        border-radius: 0px 5px 5px 0px;
+        .whyacbtn{
+            display: block;
+            margin-top: 10px;
+            font-size: 20px;
+            color: #ACAF76;
+        }
+    }
+}

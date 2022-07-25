@@ -3,6 +3,7 @@ import { PlusCircleOutlined,MinusCircleOutlined,EditOutlined,SubnodeOutlined,Sis
     ColumnHeightOutlined ,LoginOutlined ,DownOutlined,CommentOutlined  } 
         from '@ant-design/icons';
 import "antd/dist/antd.css";
+import './css/why.scss'
 
 
 class Why extends PureComponent{

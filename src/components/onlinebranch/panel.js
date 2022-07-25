@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
 import Comment from "./comment";
+import './css/panel.scss'
 import { ZoomInOutlined,ZoomOutOutlined  } from '@ant-design/icons';
 
 class Panel extends PureComponent{
@@ -171,7 +172,8 @@ class Panel extends PureComponent{
     let commentpid = this.state.actionparam.commentpid;
     let comments = this.findcomments(commentpid);
     if(commentpid){
-      return <div className="comments">
+      return (
+      <div className="comments">
           <div className="maskclass">
           </div>
           <div className="qaEditPanel">
@@ -191,7 +193,7 @@ class Panel extends PureComponent{
               <button onClick={e=>{this.commenteditClose(this.state.actionparam.showcomments)}} className="btn">Close</button>
             </div>
           </div>
-        </div>
+        </div>)
     }else {
       return ''
     }
