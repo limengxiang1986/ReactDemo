@@ -238,10 +238,14 @@ body{
 .panel>.scenario>.why{
     width: 210px;
     height: 210px;
-    margin-right:7px;
+    margin-right:5px;
     margin-bottom: 5px;
     background-color: #A9BBD9;
     border-radius: 5px;
+}
+.panel>.scenario>.why:hover{
+    border:1px solid #fff;
+    box-shadow: 2px 2px 2px #888888;
 }
 .panel>.scenario>.why>.whyqa{
     float: left;
