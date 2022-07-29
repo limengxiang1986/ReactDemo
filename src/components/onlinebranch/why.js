@@ -11,18 +11,21 @@ class Why extends PureComponent{
     const why = this.props.why; 
     const css = this.props.css;
     const comments = this.props.findcomments(null,why.eleid);
+    const hightlighteleid = this.props.actionparam.hightlighteleid;
     return (
         <>
-            {this.renderContent(why, css, comments)}
+            {this.renderContent(why, css, comments, hightlighteleid)}
         </>
     )
   }
-  renderContent = (why,css,comments) =>{
+  renderContent = (why,css,comments, hightlighteleid) =>{
     let eleid = why.eleid; 
-    return <div className="why" style={{height: css.multiple*(css.eleheight*why.rsize)+(why.rsize-1)*css.marginbottom+"px",
+    let hightclass = (this.relationwithele(hightlighteleid,why) ? "whyhightlight":"");
+    let className = "why" + " " + hightclass;
+    return <div className={className} style={{height: css.multiple*(css.eleheight*why.rsize)+(why.rsize-1)*css.marginbottom+"px",
                                         width: css.multiple*(css.elewidth)+"px",
                                         }} 
-                                        >
+                                onClick={(e)=>{this.props.setHightLightEle(e, eleid)}}    >
             <div className="whyqa" >
                 <div className="whyqatitleq" >
                     Question:
@@ -46,6 +49,46 @@ class Why extends PureComponent{
             </div>
         </div>
   } 
+  relationwithele(hightlighteleid, ele){
+    if (ele.eleid == hightlighteleid || ele.pid == hightlighteleid ){
+        return true
+    }
+    if(ele.pid){
+        
+    }
+    if(ele.subeles){
+        for(let i=0;i<ele.subeles.length;i++){
+            if(ele.subeles[i].eleid == hightlighteleid){
+                return true
+            }
+            if(ele.subeles[i].subeles){
+                for(let j=0;j<ele.subeles[i].subeles.length;j++){
+                    if(ele.subeles[i].subeles[j].eleid == hightlighteleid){
+                        return true
+                    }
+                    if(ele.subeles[i].subeles[j].subeles){
+                        for(let k=0;k<ele.subeles[i].subeles[j].length;k++){
+                            if(ele.subeles[i].subeles[j].subeles[k].eleid == hightlighteleid){
+                                return true
+                            }
+                            if(ele.subeles[i].subeles[j].subeles[k].subeles){
+                                for(let m=0;m<ele.subeles[i].subeles[j].subeles[k].length;m++){
+                                    if(ele.subeles[i].subeles[j].subeles[k].subeles[m].eleid == hightlighteleid){
+                                        return true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false
+  }
 }
 
-export default Why
+export default Why;
+
+
+

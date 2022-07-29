@@ -13,7 +13,6 @@ import Panel from './components/onlinebranch/panel';
 import './assets/css/style.css';
 
 
-
 class App extends PureComponent{
   constructor(prop){
     super(prop);

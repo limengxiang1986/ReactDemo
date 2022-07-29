@@ -2,6 +2,7 @@ import { PureComponent } from "react";
 import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
 import Comment from "./comment";
+import { CSSTransition } from 'react-transition-group';
 import './css/panel.scss'
 import { ZoomInOutlined,ZoomOutOutlined  } from '@ant-design/icons';
 
@@ -29,7 +30,8 @@ class Panel extends PureComponent{
         aplimit:5,
         whylimit:5,
         deeplimit:5,
-        rootcauselimit:1
+        rootcauselimit:1,
+        hightlighteleid:'-1',
       },
       paneldata : {
         "onlineid":"onlineid0001",
@@ -145,6 +147,7 @@ class Panel extends PureComponent{
                   addsubap={(e,eleid)=>this.addsubap(eleid)}
                   showcomment={(e,eleid)=>this.showcomment(eleid)}
                   findcomments={(e,eleid)=>this.findcomments(eleid)} 
+                  setHightLightEle={(e,eleid)=>this.setHightLightEle(eleid)} 
             />
           })
         }
@@ -204,30 +207,36 @@ class Panel extends PureComponent{
     let currentq = why.question;
     let currenta = why.answer;
     if(editedwhyid){
-      return <div className="edpanel">
-          <div className="maskclass">
-          </div>
-          <div className="qaEditPanel">
-            <div className="whyqa" >
-                <div className="whyqatitleq" >
-                    Question:
+      return (<div>
+        <CSSTransition in={editedwhyid != ""}
+                    classNames="qaeditpanelclass"
+                    timeout={1000}>
+            <div className="edpanel">
+              <div className="maskclass">
+              </div>
+              <div className="qaEditPanel">
+                <div className="whyqa" >
+                    <div className="whyqatitleq" >
+                        Question:
+                    </div>
+                    <div className="whyqacontentq" >
+                        <input ref={input => this.questioninput = input} defaultValue={why.question}/>
+                    </div>
+                    <div className="whyqatitlea" >
+                        Answer:
+                    </div>
+                    <div className="whyqacontente" >
+                        <input ref={input => this.answerinput = input} defaultValue={why.answer}/>
+                    </div>
+                </div>  
+                <div className="bottom">
+                  <button onClick={e=>{this.qaeditSave(this.state.actionparam.showwhyedit,editedwhyid)}} className="btn">Save</button>
+                  <button onClick={e=>{this.qaeditClose(this.state.actionparam.showwhyedit)}} className="btn">Close</button>
                 </div>
-                <div className="whyqacontentq" >
-                    <input ref={input => this.questioninput = input} defaultValue={why.question}/>
-                </div>
-                <div className="whyqatitlea" >
-                    Answer:
-                </div>
-                <div className="whyqacontente" >
-                    <input ref={input => this.answerinput = input} defaultValue={why.answer}/>
-                </div>
-            </div>  
-            <div className="bottom">
-              <button onClick={e=>{this.qaeditSave(this.state.actionparam.showwhyedit,editedwhyid)}} className="btn">Save</button>
-              <button onClick={e=>{this.qaeditClose(this.state.actionparam.showwhyedit)}} className="btn">Close</button>
+              </div>
             </div>
-          </div>
-        </div>
+        </CSSTransition>
+        </div>)
     }else {
       return ''
     }
@@ -545,6 +554,13 @@ class Panel extends PureComponent{
     const actionparam = {...this.state.actionparam};
     actionparam.showhighlight = true;
     actionparam.highlightele = eleid;
+    this.setState({
+      actionparam:actionparam
+    })
+  }
+  setHightLightEle(eleid){
+    const actionparam = {...this.state.actionparam};
+    actionparam.hightlighteleid = eleid;
     this.setState({
       actionparam:actionparam
     })

@@ -44,7 +44,7 @@ class Scenario extends PureComponent{
         {
             whycssarr.map((item, index, allitem)=>{
                 if(item.eletype == 'why'){
-                    return <Why key={item.eleid+index} why={item} comments={comments} css={css}
+                    return <Why key={item.eleid+index} why={item} comments={comments} css={css} actionparam={actionparam}
                             showhighlight={this.props.showhighlight}
                             addsubwhy={this.props.addsubwhy}
                             addrootcause={this.props.addrootcause}
@@ -53,6 +53,7 @@ class Scenario extends PureComponent{
                             addscenario={this.props.addscenario}
                             showcomment={this.props.showcomment}
                             findcomments={this.props.findcomments}
+                            setHightLightEle={this.props.setHightLightEle}
                            />
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} comments={comments} css={css} 

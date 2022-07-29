@@ -22,6 +22,9 @@ body{
 .panel{
     /* background-color: rgb(233, 185, 185); */
     margin-bottom: 20px;
+    background: 
+    linear-gradient(to bottom, lightblue, transparent),
+    linear-gradient(225deg, #ccc, transparent);
 }
 .panel>.line{
     display: flex;
@@ -41,6 +44,7 @@ body{
     background-color: #A9BBD9;
     border-radius: 5px;
 }
+
 .panel>.line>.why5>.why>.whyqa{
     float: left;
 }
@@ -188,6 +192,7 @@ body{
     height: 500px;
     z-index: 999;
     border-radius: 4px;
+    transition: width 2.6s ease 0s, height 2.3s ease-in 1s;
 }
 .panel>.edpanel>.qaEditPanel>.whyqa{
     float: left;
@@ -245,7 +250,14 @@ body{
 }
 .panel>.scenario>.why:hover{
     border:1px solid #fff;
-    box-shadow: 2px 2px 2px #888888;
+    /* box-shadow: 2px 2px 2px #888888; */
+    /* box-shadow: 0 0px 3px 3px #ccc; */
+    z-index:4;
+    box-shadow:
+    -3px 0 3px 3px #FFF,
+    0px -3px 3px 3px #FFF,
+    3px 0 3px 3px #FFF,
+    0 3px 3px 3px #FFF;
 }
 .panel>.scenario>.why>.whyqa{
     float: left;
@@ -293,7 +305,23 @@ body{
     font-size: 20px;
     color: #ACAF76;
 }
+.panel>.scenario>.whyhightlight{
+    z-index:2;
+    animation:mymove 8s 1;
+    -webkit-animation:mymove 8s 1; /*Safari and Chrome*/
+    animation-timing-function:ease-in;
+}
+@keyframes mymove
+{
+    from {box-shadow:0px 0px 8px 8px yellow}
+    to {box-shadow:0px 0 0px 0px #fff}
+}
 
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+    from {box-shadow:0px 0px 8px 8px yellow}
+    to {box-shadow:0px 0 0px 0px #fff}
+}
 .panel>.scenario>.emptywhy{
     width: 210px;
     height: 210px;
@@ -490,7 +518,33 @@ body{
 }
 .panel>.scenario>.scenariothead>.content{
     float: left;
+} 
+.qaeditpanelclass-enter{
+    opacity: 0;
+    transform : scale(0.6);
 }
 
+.qaeditpanelclass-enter-active{
+    opacity: 1;
+    transform : scale(1);
+    transition: opacity 300ms, transform 300ms;
+}
 
+.qaeditpanelclass-enter-done{
+
+}
+
+.qaeditpanelclass-exit{
+    opacity: 1;
+}
+
+.qaeditpanelclass-exit-active{
+    opacity: 0;
+    transform : scale(0.6);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.qaeditpanelclass-exit-done{
+    opacity: 0;
+}
 
