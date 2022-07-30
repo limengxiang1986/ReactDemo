@@ -25,7 +25,8 @@ class Why extends PureComponent{
     return <div className={className} style={{height: css.multiple*(css.eleheight*why.rsize)+(why.rsize-1)*css.marginbottom+"px",
                                         width: css.multiple*(css.elewidth)+"px",
                                         }} 
-                                onClick={(e)=>{this.props.setHightLightEle(e, eleid)}}    >
+                                onClick={(e)=>{this.props.setHightLightEle(e, eleid)}} 
+                                >
             <div className="whyqa" >
                 <div className="whyqatitleq" >
                     Question:
