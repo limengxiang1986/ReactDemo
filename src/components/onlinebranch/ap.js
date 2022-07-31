@@ -29,8 +29,12 @@ class Ap extends PureComponent{
         </div>
         <div className="apactionpanel">
             {/* <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, ap.eleid)}} title="Create ap" className="acbtn"/>  */}
-            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid)}} title="Delete" className="acbtn"/> 
-            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,ap.eleid)}} title={"Comment,"+comments.length}/>
+            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title="Delete" className="acbtn"/> 
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,ap.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title={"Comment,"+comments.length}/>
         </div>
       </div>
     )

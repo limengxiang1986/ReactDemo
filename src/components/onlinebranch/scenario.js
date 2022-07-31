@@ -62,6 +62,7 @@ class Scenario extends PureComponent{
                             showcomment={this.props.showcomment}
                             findcomments={this.props.findcomments}
                             setHightLightEle={this.props.setHightLightEle}
+                            shownewwhypanel={this.props.shownewwhypanel}
                            />
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} comments={comments} css={css} 

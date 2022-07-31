@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
 import Comment from "./comment";
 import { CSSTransition } from 'react-transition-group';
-import './css/panel.scss'
+import './css/panel.scss';
+import { Modal } from 'antd';
 import { ZoomInOutlined,ZoomOutOutlined  } from '@ant-design/icons';
 
 class Panel extends PureComponent{
@@ -33,6 +34,10 @@ class Panel extends PureComponent{
         rootcauselimit:1,
         hightlighteleid:'-1',
         relationeletree:[],
+        currentwhyid:'',
+        isshowedit:false,
+        question:'',
+        answer:'',
       },
       paneldata : {
         "onlineid":"onlineid0001",
@@ -138,7 +143,7 @@ class Panel extends PureComponent{
         {
           paneldata.scenarios.map((item , index, allline)=>{
             return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} actionparam={this.state.actionparam} getRandomNum={this.getRandomNum}
-                  addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
+                  addsubwhy={(e,whyid, question, answer)=>this.addsubwhy(whyid, question, answer)}
                   addrootcause={(e,whyid)=>this.addrootcause(whyid)}
                   delele={(e,eleid)=>this.delele(eleid)}
                   editqa={(e,eleid)=>this.editqa(eleid)}
@@ -148,6 +153,7 @@ class Panel extends PureComponent{
                   showcomment={(e,eleid)=>this.showcomment(eleid)}
                   findcomments={(e,eleid)=>this.findcomments(eleid)} 
                   setHightLightEle={(e,eleid)=>this.setHightLightEle(eleid)}  
+                  shownewwhypanel={(e,eleid)=>this.shownewwhypanel(eleid)}  
             />
           })
         }
@@ -159,6 +165,9 @@ class Panel extends PureComponent{
         }
         {
            this.renderComments()
+        }
+        {
+          this.renderNewWhy()
         }
         <button className="scenariobtn" onClick={e=>{
           this.addscenario()
@@ -172,6 +181,18 @@ class Panel extends PureComponent{
           <ZoomInOutlined onClick={e=>{this.ZommIn()}} className="scenarioicon"/>
           <ZoomOutOutlined onClick={e=>{this.ZommOut()}} className="scenarioicon"/>
       </div>
+    )
+  }
+  renderNewWhy(){
+    return (
+        <Modal title="New Why" visible={this.state.actionparam.isshowedit} 
+            onOk={(e)=>{this.newwhyhandleOk(this.state.actionparam.currentwhyid)}}
+            onCancel={(e)=>{this.newwhyhandleCancel()}}>
+            <div>Question:</div>
+            <div style={{border:"1px solid #000"}}><input ref={input => this.newwhyquestioninput = input} defaultValue={""}/></div>
+            <div>Answer:</div>
+            <div style={{border:"1px solid #000"}}><input ref={input => this.newwhyanswerinput = input} defaultValue={""}/></div>
+        </Modal>
     )
   }
   renderComments(){
@@ -271,6 +292,39 @@ class Panel extends PureComponent{
       return ''
     }
   }
+  shownewwhypanel(eleid){
+      const actionparam = {...this.state.actionparam};
+      const paneldata = {...this.state.paneldata};
+      const why = this.findele(eleid, paneldata);
+      actionparam.currentwhyid = eleid;
+      actionparam.isshowedit = true;
+      actionparam.question = why.question;
+      actionparam.answer = why.answer;
+      this.setState({
+          actionparam:actionparam
+      })
+  }
+  newwhyhandleCancel(){
+    const actionparam = {...this.state.actionparam};
+    actionparam.isshowedit = false;
+      this.setState({
+          actionparam:actionparam
+      })
+  }
+  newwhyhandleOk(eleid){
+    const actionparam = {...this.state.actionparam};
+    actionparam.currentwhyid = eleid;
+    actionparam.isshowedit = false;
+    actionparam.question = this.newwhyquestioninput.value;
+    actionparam.answer = this.newwhyanswerinput.value;
+    this.setState({
+      actionparam:actionparam
+    },()=>{
+      this.addsubwhy(eleid, this.newwhyquestioninput.value, this.newwhyanswerinput.value);
+      this.newwhyquestioninput.value = '';
+      this.newwhyanswerinput.value = '';
+    })
+  }
   commenteditSave(pid){
     let actionparam = {...this.state.actionparam};
     let paneldata = {...this.state.paneldata}
@@ -285,8 +339,9 @@ class Panel extends PureComponent{
     this.setState({
       actionparam:actionparam,
       paneldata:paneldata
+    },()=>{
+      this.commentinput.value = '';
     })
-    this.commentinput.value = '';
   }
   commenteditClose(){
     let actionparam = {...this.state.actionparam};
@@ -398,7 +453,7 @@ class Panel extends PureComponent{
     }
     return ''
   }
-  addsubwhy(whyid){
+  addsubwhy(whyid, qustion, answer){
     const paneldata = {...this.state.paneldata};
     const why = this.findele(whyid, paneldata);
     let deeplevel = 0;
@@ -410,7 +465,7 @@ class Panel extends PureComponent{
     }
     console.log(why);
     if(deeplevel < this.state.actionparam.whylimit){
-      why.subeles.push(this.genEmptyWhy(whyid));
+      why.subeles.push(this.genEmptyWhy(whyid, qustion, answer));
       this.setState({
         paneldata: paneldata
       })
@@ -501,12 +556,12 @@ class Panel extends PureComponent{
       ]
     }
   }
-  genEmptyWhy(pwhyid){
+  genEmptyWhy(pwhyid, qustion, answer){
     return {
       "eletype":"why",
       "eleid":"whyid"+this.getRandomNum(), 
-      "question":this.getRandomNum(),
-      "answer":this.getRandomNum() ,
+      "question":qustion ? qustion : this.getRandomNum(),
+      "answer":answer ? answer : this.getRandomNum() ,
       "pid":pwhyid,
       "subeles":[
       ]}

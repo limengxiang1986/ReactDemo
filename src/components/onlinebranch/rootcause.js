@@ -23,10 +23,18 @@ class Rootcause extends PureComponent{
           {rootcause.rootcause}
         </div>
         <div className="rcaedarootcauseactionpanel">
-            <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, rootcause.eleid)}} title="Create ap" className="acbtn"/> 
-            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, rootcause.eleid)}} title="Delete" className="acbtn"/> 
-            <EditOutlined className="acbtn" onClick={e=>{this.props.editrootcause(e,rootcause.eleid)}} title="Edit"/>
-            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,rootcause.eleid)}} title={"Comment,"+comments.length}/>
+            <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, rootcause.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title="Create ap" className="acbtn"/> 
+            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, rootcause.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title="Delete" className="acbtn"/> 
+            <EditOutlined className="acbtn" onClick={e=>{this.props.editrootcause(e,rootcause.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title="Edit"/>
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,rootcause.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title={"Comment,"+comments.length}/>
         </div>
       </div>
     )
