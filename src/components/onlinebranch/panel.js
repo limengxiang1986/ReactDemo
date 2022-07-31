@@ -25,8 +25,7 @@ class Panel extends PureComponent{
         editedrootcauseid:'',
         editedapid:'',
         commentpid:'',
-        styletype:'group',  //continuity,group
-        showhighlight:false,
+        styletype:'group',  //continuity,group 
         highlightele:'',
         aplimit:5,
         whylimit:5,
@@ -468,6 +467,8 @@ class Panel extends PureComponent{
       why.subeles.push(this.genEmptyWhy(whyid, qustion, answer));
       this.setState({
         paneldata: paneldata
+      },()=>{
+        this.setHightLightEle(whyid);
       })
     }
   }
@@ -492,6 +493,8 @@ class Panel extends PureComponent{
     why.subeles.push(this.genEmptyRootCause(whyid));
     this.setState({
       paneldata: paneldata
+    },()=>{
+      this.setHightLightEle(whyid);
     })
   } 
   addsubap(eleid){
@@ -501,6 +504,8 @@ class Panel extends PureComponent{
     ele.subeles.push(this.genEmptyAp(ele.eleid));
     this.setState({
       paneldata: paneldata
+    },()=>{
+      this.setHightLightEle(eleid);
     })
   }
   delele(whyid){
@@ -620,14 +625,6 @@ class Panel extends PureComponent{
         }
     }
     return elecomment;
-  }
-  showhighlight(eleid){
-    const actionparam = {...this.state.actionparam};
-    actionparam.showhighlight = true;
-    actionparam.highlightele = eleid;
-    this.setState({
-      actionparam:actionparam
-    })
   }
   setHightLightEle(eleid){
     const actionparam = {...this.state.actionparam};
