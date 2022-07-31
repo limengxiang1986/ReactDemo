@@ -39,13 +39,21 @@ class Scenario extends PureComponent{
     const csize = whymetrics[0].length;
     const heightc = css.multiple*((rsize-1)*css.eleheight + css.theadheight)+ (rsize)*css.marginbottom+"px";   //thead height(50px) + tbody height(250*rsize)
     const widthc = css.multiple*(csize*css.elewidth)+csize*css.marginright+"px";
+    const relationeletree = actionparam.relationeletree;
     return (
       <div className="scenario" style={{height: heightc,width:widthc}}>
         {
             whycssarr.map((item, index, allitem)=>{
+                let hightrelationeleflag = false ;
+                for(let i=0;i<relationeletree.length;i++){
+                  if(relationeletree[i].eleid == item.eleid){
+                    hightrelationeleflag = true;
+                    break;
+                  }
+                }
                 if(item.eletype == 'why'){
                     return <Why key={item.eleid+index} why={item} comments={comments} css={css} actionparam={actionparam}
-                            showhighlight={this.props.showhighlight}
+                            hightrelationeleflag={hightrelationeleflag}
                             addsubwhy={this.props.addsubwhy}
                             addrootcause={this.props.addrootcause}
                             delele={this.props.delele}
@@ -57,20 +65,22 @@ class Scenario extends PureComponent{
                            />
                 }else if(item.eletype == 'rootcause'){
                     return <Rootcause key={item.eleid+index} rootcause={item} comments={comments} css={css} 
-                            showhighlight={this.props.showhighlight}
+                            hightrelationeleflag={hightrelationeleflag}
                             addsubap={this.props.addsubap}
                             editrootcause={this.props.editrootcause}
                             delele={this.props.delele}
                             findcomments={this.props.findcomments}
                             showcomment={this.props.showcomment}
+                            setHightLightEle={this.props.setHightLightEle}
                            />
                 }else if(item.eletype == 'ap'){
                     return <Ap key={item.eleid+index} ap={item} comments={comments} css={css}
-                            showhighlight={this.props.showhighlight}
+                            hightrelationeleflag={hightrelationeleflag}
                             addsubap={this.props.addsubap}
                             delele={this.props.delele}
                             findcomments={this.props.findcomments}
                             showcomment={this.props.showcomment}
+                            setHightLightEle={this.props.setHightLightEle}
                            />
                 }else if(item.eletype == 'scenariocol'){
                     return <ScenarioCol key={item.eleid+index} scenariocol={item} css={css}
@@ -363,6 +373,43 @@ class Scenario extends PureComponent{
             this.findleafnode(whynode.subeles[i],whytree, leafnodearr)
         }
     }
+  }
+  relationwithele(hightlighteleid, ele){
+    if (ele.eleid == hightlighteleid || ele.pid == hightlighteleid ){
+        return true
+    }
+    if(ele.pid){
+        
+    }
+    if(ele.subeles){
+        for(let i=0;i<ele.subeles.length;i++){
+            if(ele.subeles[i].eleid == hightlighteleid){
+                return true
+            }
+            if(ele.subeles[i].subeles){
+                for(let j=0;j<ele.subeles[i].subeles.length;j++){
+                    if(ele.subeles[i].subeles[j].eleid == hightlighteleid){
+                        return true
+                    }
+                    if(ele.subeles[i].subeles[j].subeles){
+                        for(let k=0;k<ele.subeles[i].subeles[j].length;k++){
+                            if(ele.subeles[i].subeles[j].subeles[k].eleid == hightlighteleid){
+                                return true
+                            }
+                            if(ele.subeles[i].subeles[j].subeles[k].subeles){
+                                for(let m=0;m<ele.subeles[i].subeles[j].subeles[k].length;m++){
+                                    if(ele.subeles[i].subeles[j].subeles[k].subeles[m].eleid == hightlighteleid){
+                                        return true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return false
   }
 }
 

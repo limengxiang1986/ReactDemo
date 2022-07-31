@@ -9,9 +9,13 @@ class Rootcause extends PureComponent{
     const rootcause = this.props.rootcause;
     const css = this.props.css;
     const comments = this.props.findcomments(null,rootcause.eleid);
+    const hightrelationeleflag = this.props.hightrelationeleflag;
+    let hightlightclass = (hightrelationeleflag ? "hightlight" : "" ) ;
     return (
-      <div className="rcaedarootcause" style={{height: css.multiple*css.eleheight+"px",
-                                               width: css.multiple*(css.elewidth)+"px",}}> 
+      <div className={"rcaedarootcause " + hightlightclass} style={{height: css.multiple*css.eleheight+"px",
+                                               width: css.multiple*(css.elewidth)+"px",}}
+                                       onClick={(e)=>{this.props.setHightLightEle(e, rootcause.eleid)}}
+                                       > 
         <div className="content">
           <div className="title" >
               Root Cause

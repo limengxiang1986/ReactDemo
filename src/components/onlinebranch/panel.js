@@ -32,6 +32,7 @@ class Panel extends PureComponent{
         deeplimit:5,
         rootcauselimit:1,
         hightlighteleid:'-1',
+        relationeletree:[],
       },
       paneldata : {
         "onlineid":"onlineid0001",
@@ -137,7 +138,6 @@ class Panel extends PureComponent{
         {
           paneldata.scenarios.map((item , index, allline)=>{
             return <Scenario key={"sce"+this.getRandomNum()} scenariodata={item} css={this.state.css} actionparam={this.state.actionparam} getRandomNum={this.getRandomNum}
-                  showhighlight={(e,eleid)=>this.showhighlight(eleid)}
                   addsubwhy={(e,whyid)=>this.addsubwhy(whyid)}
                   addrootcause={(e,whyid)=>this.addrootcause(whyid)}
                   delele={(e,eleid)=>this.delele(eleid)}
@@ -147,7 +147,7 @@ class Panel extends PureComponent{
                   addsubap={(e,eleid)=>this.addsubap(eleid)}
                   showcomment={(e,eleid)=>this.showcomment(eleid)}
                   findcomments={(e,eleid)=>this.findcomments(eleid)} 
-                  setHightLightEle={(e,eleid)=>this.setHightLightEle(eleid)} 
+                  setHightLightEle={(e,eleid)=>this.setHightLightEle(eleid)}  
             />
           })
         }
@@ -166,6 +166,9 @@ class Panel extends PureComponent{
          <button className="scenariobtn" onClick={e=>{
            this.toggleStyle()
           }}>toggle style</button>
+          <button className="scenariobtn" onClick={e=>{
+            this.alertScenariojson()
+           }}>alertScenariojson</button>
           <ZoomInOutlined onClick={e=>{this.ZommIn()}} className="scenarioicon"/>
           <ZoomOutOutlined onClick={e=>{this.ZommOut()}} className="scenarioicon"/>
       </div>
@@ -361,7 +364,18 @@ class Panel extends PureComponent{
     }
     return w;
   }
-  findpele(whyid, paneldata){ 
+  findsubeles(whyid, paneldata, subeles){
+    let w = this.findele(whyid, paneldata);
+    for(let i=0;i<w.subeles.length;i++){
+      const ele = this.findele(w.subeles[i].eleid, paneldata);
+      subeles.push(ele);
+      if(ele && ele.subeles && ele.subeles.length > 0){
+        subeles.concat(this.findsubeles(ele.eleid, paneldata, subeles))
+      }
+    }
+    return subeles;
+  }
+  findpele(whyid, paneldata){
     let w = this.findele(whyid, paneldata);
     let pw = '';
     for(let i=0;i<paneldata.scenarios.length;i++){
@@ -403,17 +417,17 @@ class Panel extends PureComponent{
     }
   }
   editqa(eleid){
+    const actionparam = {...this.state.actionparam};
+    actionparam.editedwhyid = eleid
     this.setState({
-      actionparam:{
-        editedwhyid:eleid,
-      }
+      actionparam:actionparam
     })
   }
   editrootcause(eleid){
+    const actionparam = {...this.state.actionparam};
+    actionparam.editedrootcauseid = eleid
     this.setState({
-      actionparam:{
-        editedrootcauseid:eleid,
-      }
+      actionparam:actionparam
     })
   }
   addrootcause(whyid){
@@ -527,6 +541,8 @@ class Panel extends PureComponent{
       actionparam: actionparam
     })
   }
+  alertScenariojson(){
+  }
   showcomment(eleid) {
     const paneldatanew = {...this.state.paneldata};
     let actionparam = {...this.state.actionparam}; 
@@ -534,7 +550,7 @@ class Panel extends PureComponent{
     this.setState({
       actionparam: actionparam,
       paneldatanew: paneldatanew
-    }) 
+    })
   }
   findcomments(eleid){
     if(!eleid){
@@ -561,10 +577,29 @@ class Panel extends PureComponent{
   setHightLightEle(eleid){
     const actionparam = {...this.state.actionparam};
     actionparam.hightlighteleid = eleid;
+    const relationeletree = this.getRelationEleTree(eleid);
+    actionparam.relationeletree = relationeletree;
     this.setState({
-      actionparam:actionparam
+      actionparam:actionparam,
     })
   }
+  getRelationEleTree(eleid){
+    const paneldata = this.state.paneldata;
+    let relationeletree = [];
+    let currentele = this.findele(eleid, paneldata);
+    let ele = {...currentele};
+    relationeletree.push(this.findele(eleid, paneldata));
+    //find parent
+    while(ele && ele.pid) {
+      ele = this.findele(ele.pid, paneldata);
+      relationeletree.push(ele);
+    }
+    //find sub
+    let subeles = this.findsubeles(eleid, paneldata, []);
+    relationeletree = relationeletree.concat(subeles);
+    return relationeletree;
+  }
+  
   getRandomNum(){
     return parseInt(Math.random() * 999999999999)
   } 

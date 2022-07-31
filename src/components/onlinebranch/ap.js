@@ -8,9 +8,13 @@ class Ap extends PureComponent{
     const ap = this.props.ap;
     const css = this.props.css;
     const comments = this.props.findcomments(null,ap.eleid);
+    const hightrelationeleflag = this.props.hightrelationeleflag;
+    let hightlightclass = (hightrelationeleflag ? "hightlight" : "" ) ;
     return (
-      <div className="ap" style={{height: css.multiple*css.eleheight+"px",
-                                  width: css.multiple*(css.elewidth)+"px",}}>
+      <div className={"ap " + hightlightclass} style={{height: css.multiple*css.eleheight+"px",
+                                  width: css.multiple*(css.elewidth)+"px",}}
+                                  onClick={(e)=>{this.props.setHightLightEle(e, ap.eleid)}} 
+                                  >
         <div className="content">
           <div className="title" >
               Action Proposal
