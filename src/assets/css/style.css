@@ -22,6 +22,11 @@ body{
 .panel{
     /* background-color: rgb(233, 185, 185); */
     margin-bottom: 20px;
+    width: 3000px;
+    background-color: #ccc;
+    /* background: 
+    linear-gradient(to bottom, lightblue, transparent),
+    linear-gradient(225deg, #ccc, transparent); */
 }
 .panel>.line{
     display: flex;
@@ -33,7 +38,6 @@ body{
     display: flex;
     flex-shrink: 0;     /**aviod flexible*/
     flex-shrink: 0;
-
 }
 .panel>.line>.why5>.why{
     width: 210px;
@@ -41,6 +45,7 @@ body{
     background-color: #A9BBD9;
     border-radius: 5px;
 }
+
 .panel>.line>.why5>.why>.whyqa{
     float: left;
 }
@@ -188,6 +193,7 @@ body{
     height: 500px;
     z-index: 999;
     border-radius: 4px;
+    transition: width 2.6s ease 0s, height 2.3s ease-in 1s;
 }
 .panel>.edpanel>.qaEditPanel>.whyqa{
     float: left;
@@ -238,10 +244,52 @@ body{
 .panel>.scenario>.why{
     width: 210px;
     height: 210px;
-    margin-right:7px;
+    margin-right:5px;
     margin-bottom: 5px;
     background-color: #A9BBD9;
     border-radius: 5px;
+    transition: box-shadow 0.2s ;
+    -moz-transition:box-shadow 0.2s; /* Firefox 4 */
+    -webkit-transition:box-shadow 0.2s; /* Safari and Chrome */
+    -o-transition:box-shadow 0.2s; /* Opera */ 
+    position: relative;
+}
+.panel>.scenario>.why:before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    border: #fff solid 4px;
+    box-shadow: 0 0 4px 4px #fff;
+    top: -16px;
+    right: -16px;
+    bottom: -16px;
+    left: -16px;
+    opacity: 0;
+    -webkit-transition-duration: 0.3s; 
+    /* 未定义trasition-property，针对所有的属性，all*/
+    transition-duration: 0.3s;                   /* 动画的duration， */
+    transition-timing-function: linear;      /*linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n);*/
+    -webkit-transition-property: top, right, bottom, left, opacity;
+    transition-property: top, right, bottom, left, opacity;
+  }
+  .panel>.scenario>.why:hover:before, .panel>.scenario>.why:focus:before, .panel>.scenario>.why:active:before {
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    opacity: 1;
+    z-index:99;
+  }
+.panel>.scenario>.why:hover{
+    border:1px solid #fff; 
+    z-index:4;
+    transform: scale(1.02);           /*当前元素，hover时，放大1.1倍*/
+    transition-duration: 0.3s;  /*定义当前元素的动画时间*/
+    box-shadow:
+    -2px 0 2px 2px #FFF,
+    0px -2px 2px 2px #FFF,
+    2px 0 2px 2px #FFF,
+    0 2px 2px 2px #FFF;
 }
 .panel>.scenario>.why>.whyqa{
     float: left;
@@ -289,7 +337,23 @@ body{
     font-size: 20px;
     color: #ACAF76;
 }
+.panel>.scenario>.hightlight{
+    z-index:2;
+    animation:mymove 8s 1;
+    -webkit-animation:mymove 8s 1; /*Safari and Chrome*/
+    animation-timing-function:ease-in;
+}
+@keyframes mymove
+{
+    from {box-shadow:0px 0px 8px 8px yellow}
+    to {box-shadow:0px 0 0px 0px #fff}
+}
 
+@-webkit-keyframes mymove /*Safari and Chrome*/
+{
+    from {box-shadow:0px 0px 8px 8px yellow}
+    to {box-shadow:0px 0 0px 0px #fff}
+}
 .panel>.scenario>.emptywhy{
     width: 210px;
     height: 210px;
@@ -306,6 +370,48 @@ body{
     background-color: #FFCC00;
     flex-shrink: 0;     /**aviod flexible*/
     border-radius: 5px;
+    transition: box-shadow 0.2s ;
+    -moz-transition:box-shadow 0.2s; /* Firefox 4 */
+    -webkit-transition:box-shadow 0.2s; /* Safari and Chrome */
+    -o-transition:box-shadow 0.2s; /* Opera */ 
+    position: relative;
+}
+.panel>.scenario>.rcaedarootcause:before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    border: #fff solid 4px;
+    box-shadow: 0 0 4px 4px #fff;
+    top: -16px;
+    right: -16px;
+    bottom: -16px;
+    left: -16px;
+    opacity: 0;
+    -webkit-transition-duration: 0.3s; 
+    /* 未定义trasition-property，针对所有的属性，all*/
+    transition-duration: 0.3s;                   /* 动画的duration， */
+    transition-timing-function: linear;      /*linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n);*/
+    -webkit-transition-property: top, right, bottom, left, opacity;
+    transition-property: top, right, bottom, left, opacity;
+  }
+  .panel>.scenario>.rcaedarootcause:hover:before, .panel>.scenario>.rcaedarootcause:focus:before, .panel>.scenario>.rcaedarootcause:active:before {
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    opacity: 1;
+    z-index:99;
+  }
+.panel>.scenario>.rcaedarootcause:hover{
+    border:1px solid #fff; 
+    z-index:4;
+    transform: scale(1.02);           /*当前元素，hover时，放大1.1倍*/
+    transition-duration: 0.3s;  /*定义当前元素的动画时间*/
+    box-shadow:
+    -2px 0 2px 2px #FFF,
+    0px -2px 2px 2px #FFF,
+    2px 0 2px 2px #FFF,
+    0 2px 2px 2px #FFF;
 }
 .panel>.scenario>.rcaedarootcause>.content{
     float: left;
@@ -345,6 +451,48 @@ body{
     background-color: #3DAA00;
     flex-shrink: 0;
     border-radius: 5px;
+    transition: box-shadow 0.2s ;
+    -moz-transition:box-shadow 0.2s; /* Firefox 4 */
+    -webkit-transition:box-shadow 0.2s; /* Safari and Chrome */
+    -o-transition:box-shadow 0.2s; /* Opera */ 
+    position: relative;
+}
+.panel>.scenario>.ap:before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    border: #fff solid 4px;
+    box-shadow: 0 0 4px 4px #fff;
+    top: -16px;
+    right: -16px;
+    bottom: -16px;
+    left: -16px;
+    opacity: 0;
+    -webkit-transition-duration: 0.3s; 
+    /* 未定义trasition-property，针对所有的属性，all*/
+    transition-duration: 0.3s;                   /* 动画的duration， */
+    transition-timing-function: linear;      /*linear|ease|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n);*/
+    -webkit-transition-property: top, right, bottom, left, opacity;
+    transition-property: top, right, bottom, left, opacity;
+  }
+  .panel>.scenario>.ap:hover:before, .panel>.scenario>.ap:focus:before, .panel>.scenario>.ap:active:before {
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    left: -2px;
+    opacity: 1;
+    z-index:99;
+  }
+.panel>.scenario>.ap:hover{
+    border:1px solid #fff; 
+    z-index:4;
+    transform: scale(1.02);           /*当前元素，hover时，放大1.1倍*/
+    transition-duration: 0.3s;  /*定义当前元素的动画时间*/
+    box-shadow:
+    -2px 0 2px 2px #FFF,
+    0px -2px 2px 2px #FFF,
+    2px 0 2px 2px #FFF,
+    0 2px 2px 2px #FFF;
 }
 .panel>.scenario>.ap>.content{
     float: left;
@@ -486,7 +634,33 @@ body{
 }
 .panel>.scenario>.scenariothead>.content{
     float: left;
+} 
+.qaeditpanelclass-enter{
+    opacity: 0;
+    transform : scale(0.6);
 }
 
+.qaeditpanelclass-enter-active{
+    opacity: 1;
+    transform : scale(1);
+    transition: opacity 300ms, transform 300ms;
+}
 
+.qaeditpanelclass-enter-done{
+
+}
+
+.qaeditpanelclass-exit{
+    opacity: 1;
+}
+
+.qaeditpanelclass-exit-active{
+    opacity: 0;
+    transform : scale(0.6);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.qaeditpanelclass-exit-done{
+    opacity: 0;
+}
 

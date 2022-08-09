@@ -8,9 +8,13 @@ class Ap extends PureComponent{
     const ap = this.props.ap;
     const css = this.props.css;
     const comments = this.props.findcomments(null,ap.eleid);
+    const hightrelationeleflag = this.props.hightrelationeleflag;
+    let hightlightclass = (hightrelationeleflag ? "hightlight" : "" ) ;
     return (
-      <div className="ap" style={{height: css.multiple*css.eleheight+"px",
-                                  width: css.multiple*(css.elewidth)+"px",}}>
+      <div className={"ap " + hightlightclass} style={{height: css.multiple*css.eleheight+"px",
+                                  width: css.multiple*(css.elewidth)+"px",}}
+                                  onClick={(e)=>{this.props.setHightLightEle(e, ap.eleid)}} 
+                                  >
         <div className="content">
           <div className="title" >
               Action Proposal
@@ -25,8 +29,12 @@ class Ap extends PureComponent{
         </div>
         <div className="apactionpanel">
             {/* <AmazonOutlined onClick={(e)=>{this.props.addsubap(e, ap.eleid)}} title="Create ap" className="acbtn"/>  */}
-            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid)}} title="Delete" className="acbtn"/> 
-            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,ap.eleid)}} title={"Comment,"+comments.length}/>
+            <MinusCircleOutlined onClick={(e)=>{this.props.delele(e, ap.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title="Delete" className="acbtn"/> 
+            <CommentOutlined className="acbtn" onClick={e=>{this.props.showcomment(e,ap.eleid);
+                                    e.stopPropagation();
+                                    e.nativeEvent.stopImmediatePropagation();}} title={"Comment,"+comments.length}/>
         </div>
       </div>
     )
