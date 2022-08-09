@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import Scenario from "./scenario";
 import Comment from "./comment";
 import './css/panel.scss'
+import ModalCompoent from "../../../ModalCompoent/ModalCompoent";
 import { ZoomInOutlined,ZoomOutOutlined  } from '@ant-design/icons';
-
 class Panel extends PureComponent{
   constructor(props){
     super(props);

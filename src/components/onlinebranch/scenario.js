@@ -138,7 +138,7 @@ class Scenario extends PureComponent{
     // fill metrics with blankwhy when why is null
     for(let i=0;i<emptymetrics.length;i++){
         for(let j=0;j<emptymetrics[i].length;j++){
-            if(emptymetrics[i][j].value == 0 && emptymetrics[i][j].ele == null){
+            if(emptymetrics[i][j].value === 0 && emptymetrics[i][j].ele === null){
                 emptymetrics[i][j] = this.newEmpty()
             }
             // set blank colsize if it's a leafnode, for cssarr use

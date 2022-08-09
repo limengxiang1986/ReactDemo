@@ -1,0 +1,17 @@
+.scenariothead{ 
+    width: 250px;
+    height: 30px;
+    margin-right:5px;
+    margin-bottom: 5px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 7px 0px 0px 100px;
+    color: #fff;
+    font-size: 27px;
+    background-color: #194A96;
+    flex-shrink: 0;     /**aviod flexible*/
+    border-radius: 5px;
+    .content{
+        float: left;
+    }
+}

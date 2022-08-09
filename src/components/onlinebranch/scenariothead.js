@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import {AmazonOutlined,MinusCircleOutlined,CommentOutlined,EditOutlined} 
         from '@ant-design/icons'
 import "antd/dist/antd.css";
+import './css/scenariothead.scss'
 
 class ScenarioThead extends PureComponent{
   render(){ 
